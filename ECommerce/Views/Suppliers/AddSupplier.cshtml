@@ -1,0 +1,94 @@
+﻿@model AddSupplierModel
+
+@{
+    ViewData["Title"] = "AddSupplier";
+}
+
+<div class="card" style="width:60%; margin:auto;">
+    <div class="card-header bg-dark text-white">
+        <h5>Add Supplier</h5>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(supplier => supplier.Name)
+                        @Html.TextBoxFor(supplier => supplier.Name, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.Name)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(supplier => supplier.Email)
+                        @Html.TextBoxFor(supplier => supplier.Email, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.Email)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.Password)
+                        @Html.TextBoxFor(customer=> customer.Password, new { @class = "form-control",type = "password" })
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Password)</span>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.ConfirmPassword)
+                        @Html.TextBoxFor(customer=> customer.ConfirmPassword, new { @class = "form-control",  type = "password"})
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.ConfirmPassword)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(supplier => supplier.Country)
+                        @Html.TextBoxFor(supplier => supplier.Country, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.Country)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(supplier => supplier.State)
+                        @Html.TextBoxFor(supplier => supplier.State, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.State)</span>
+                        <br />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(supplier => supplier.City)
+                        @Html.TextBoxFor(supplier => supplier.City, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.City)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                @Html.ActionLink("Back To List", "Index","Suppliers", " ",new {@class="btn btn-secondary"})
+            </div>
+        }
+    </div>
+</div>  

@@ -1,0 +1,122 @@
+﻿@model AddCustomerModel
+
+@{
+    ViewData["Title"] = "AddCustomer";
+}
+
+<div class="card" style="margin:auto;">
+    <div class="card-header bg-dark text-white">
+        <h5>Add Customer</h5>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.FirstName)
+                        @Html.TextBoxFor(customer=> customer.FirstName, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.FirstName)</span>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.LastName)
+                        @Html.TextBoxFor(customer=> customer.LastName, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.LastName)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.Email)
+                        @Html.TextBoxFor(customer=> customer.Email, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Email)</span>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.DOB)
+                        @Html.TextBoxFor(customer=> customer.DOB, new { @class = "form-control",  type = "date"})
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.DOB)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.Password)
+                        @Html.TextBoxFor(customer=> customer.Password, new { @class = "form-control",type = "password" })
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Password)</span>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.ConfirmPassword)
+                        @Html.TextBoxFor(customer=> customer.ConfirmPassword, new { @class = "form-control",  type = "password"})
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.ConfirmPassword)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.Gender)
+                        @Html.TextBoxFor(customer=> customer.Gender, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Gender)</span>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.Country)
+                        @Html.TextBoxFor(customer=> customer.Country, new { @class = "form-control",})
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Country)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.State)
+                        @Html.TextBoxFor(customer=> customer.State, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.State)</span>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(customer=> customer.City)
+                        @Html.TextBoxFor(customer=> customer.City, new { @class = "form-control",})
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.City)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                @Html.ActionLink("Back To List", "Index","Customers", " ",new {@class="btn btn-secondary"})
+            </div>
+        }
+    </div>
+</div>  

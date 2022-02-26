@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Supplier>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3 class="text-center text-uppercase">List of Suppliers</h3>
+<p>
+    @Html.ActionLink("Add Supplier", "AddSupplier","Suppliers"," ",new {@class="btn btn-primary" })
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(supplier => supplier.Name)</th>
+            <th>@Html.DisplayNameFor(supplier => supplier.Email)</th>
+            <th>@Html.DisplayNameFor(supplier => supplier.Country)</th>
+            <th>@Html.DisplayNameFor(supplier => supplier.State)</th>
+            <th>@Html.DisplayNameFor(supplier => supplier.City)</th>
+            <th>Action(s)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var supplier in Model)
+        {
+            <tr>
+                <td>@supplier.Name</td>
+                <td>@supplier.Email</td>
+                <td>@supplier.Country</td>
+                <td>@supplier.State</td>
+                <td>@supplier.City</td>
+                <td>
+                    @Html.ActionLink("Details","GetSupplier","Suppliers",new {supplierId=supplier.SupplierId},new {@class="btn btn-info"})
+                    @Html.ActionLink("Edit", "EditSupplier","Suppliers", new { supplierId= supplier.SupplierId}, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "DeleteSupplier","Suppliers", new { supplierId=supplier.SupplierId}, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

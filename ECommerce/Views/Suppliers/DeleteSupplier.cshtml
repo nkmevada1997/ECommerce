@@ -1,0 +1,61 @@
+﻿@model Supplier
+
+@{
+    ViewData["Title"] = "DeleteSupplier";
+}
+
+<h3 class="text-center text-uppercase">Delete Supplier</h3>
+<div class="card" style="width:80%; margin:auto;">
+    <div class="card-header">
+        <h3>Are you sure you want to delete this?</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(supplier => supplier.Name)</b>
+                </td>
+                <td>@Html.DisplayFor(supplier => supplier.Name)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(supplier => supplier.Email)</b>
+                </td>
+                <td>@Html.DisplayFor(supplier => supplier.Email)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(supplier => supplier.Country)</b>
+                </td>
+                <td>@Html.DisplayFor(supplier => supplier.Country)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(supplier => supplier.State)</b>
+                </td>
+                <td>@Html.DisplayFor(supplier => supplier.State)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(supplier => supplier.City)</b>
+                </td>
+                <td>@Html.DisplayFor(supplier => supplier.City)</td>
+            </tr>
+        </table>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                @Html.ActionLink("Back to List", "Index","Suppliers"," ",new {@class="btn btn-secondary"})
+            </div>
+        }
+    </div>
+</div>
+
+
+

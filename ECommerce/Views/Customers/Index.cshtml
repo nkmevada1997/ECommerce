@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3 class="text-center text-uppercase">List of Customers</h3>
+<p>
+    @Html.ActionLink("Add Customer", "AddCustomer","Customers"," ",new {@class="btn btn-primary" })
+</p>
+<br/>
+<table class="table table-striped">
+    <thead">
+        <tr>
+            <th>@Html.DisplayNameFor(customer => customer.FirstName)</th>
+            <th>@Html.DisplayNameFor(customer => customer.LastName)</th>
+            <th>@Html.DisplayNameFor(customer => customer.Email)</th>
+            <th>@Html.DisplayNameFor(customer => customer.DOB)</th>
+            <th>@Html.DisplayNameFor(customer => customer.Gender)</th>
+            <th>@Html.DisplayNameFor(customer => customer.Country)</th>
+            <th>@Html.DisplayNameFor(customer => customer.State)</th>
+            <th>@Html.DisplayNameFor(customer => customer.City)</th>
+            <th>Action(s)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.FirstName</td>
+                <td>@customer.LastName</td>
+                <td>@customer.Email</td>
+                <td>@customer.DOB.ToString("dd/MM/yyyy")</td>
+                <td>@customer.Gender</td>
+                <td>@customer.Country</td>
+                <td>@customer.State</td>
+                <td>@customer.City</td>
+                <td>
+                    @Html.ActionLink("Details","GetCustomer","Customers",new {customerId=customer.CustomerId},new {@class="btn btn-info"})
+                    @Html.ActionLink("Edit", "EditCustomer","Customers", new { customerId=customer.CustomerId}, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "DeleteCustomer","Customers", new { customerId=customer.CustomerId}, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

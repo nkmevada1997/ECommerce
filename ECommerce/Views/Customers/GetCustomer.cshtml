@@ -1,0 +1,68 @@
+﻿@model Customer
+
+@{
+    ViewData["Title"] = "GetCustomer";
+}
+
+<div class="card" style="width:60%; margin:auto;">
+    <div class="card-header bg-dark text-white">
+        <h5>Customer Details</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(customer=> customer.FirstName)</b>
+                </td>
+                <td>@Html.DisplayFor(customer=> customer.FirstName)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(customer=> customer.LastName)</b>
+                </td>
+                <td>@Html.DisplayFor(customer=> customer.LastName)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(customer=> customer.Email)</b>
+                </td>
+                <td>@Html.DisplayFor(customer=> customer.Email)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(customer=> customer.DOB)</b>
+                </td>
+                <td>@Model.DOB.ToString("dd/MM/yyyy")</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(customer=> customer.Gender)</b>
+                </td>
+                <td>@Html.DisplayFor(customer=> customer.Gender)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(customer=> customer.Country)</b>
+                </td>
+                <td>@Html.DisplayFor(customer=> customer.Country)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(customer=> customer.City)</b>
+                </td>
+                <td>@Html.DisplayFor(customer=> customer.City)</td>
+            </tr>
+
+        </table>
+        <p>
+            @Html.ActionLink("Edit Customer", "EditCustomer","Customers", new { customerId= Model.CustomerId},new {@class="btn btn-info"})
+            @Html.ActionLink("Back to List", "Index","Customers"," ",new {@class="btn btn-secondary"})
+        </p>
+    </div>
+</div>

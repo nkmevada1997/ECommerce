@@ -1,0 +1,54 @@
+﻿@model Supplier
+
+@{
+    ViewData["Title"] = "GetSupplier";
+}
+
+<div class="card" style="width:80%; margin:auto;">
+    <div class="card-header bg-dark text-white">
+        <h5>Supplier Details</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(supplier => supplier.Name)</b>
+                </td>
+                <td>@Html.DisplayFor(supplier => supplier.Name)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(supplier => supplier.Email)</b>
+                </td>
+                <td>@Html.DisplayFor(supplier => supplier.Email)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(supplier => supplier.Country)</b>
+                </td>
+                <td>@Html.DisplayFor(supplier => supplier.Country)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(supplier => supplier.State)</b>
+                </td>
+                <td>@Html.DisplayFor(supplier => supplier.State)</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(supplier => supplier.City)</b>
+                </td>
+                <td>@Html.DisplayFor(supplier => supplier.City)</td>
+            </tr>
+        </table>
+        <p>
+            @Html.ActionLink("Edit Supplier", "EditSupplier","Suppliers", new { supplierId= Model.SupplierId},new {@class="btn btn-info"})
+            @Html.ActionLink("Back to List", "Index","Suppliers"," ",new {@class="btn btn-secondary"})
+        </p>
+    </div>
+</div>
+
