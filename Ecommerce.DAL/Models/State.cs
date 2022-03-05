@@ -13,16 +13,18 @@ namespace Ecommerce.DAL.Models
         [Required]
         [MaxLength(100)]
         [DataType(DataType.Text)]
-        public string Name { get; set; } = string.Empty;
+        [Display(Name = "State Name")]
+        public string StateName { get; set; } = string.Empty;
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
         public bool IsDeleted { get; set; } = false;
 
-        [Display(Name="Country")]
+        [Display(Name = "Country")]
         public virtual Guid CountryId { get; set; }
 
         [ForeignKey("CountryId")]
+
         public virtual Country Countries { get; set; } = new Country();
     }
 }

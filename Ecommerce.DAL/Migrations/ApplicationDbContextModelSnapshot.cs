@@ -22,11 +22,16 @@ namespace Ecommerce.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Ecommerce.DAL.Models.City", b =>
+            modelBuilder.Entity("Ecommerce.DAL.Models.Category", b =>
                 {
-                    b.Property<Guid>("CityId")
+                    b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -34,10 +39,27 @@ namespace Ecommerce.DAL.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories", "dbo");
+                });
+
+            modelBuilder.Entity("Ecommerce.DAL.Models.City", b =>
+                {
+                    b.Property<Guid>("CityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CityName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("StateId")
                         .HasColumnType("uniqueidentifier");
@@ -55,16 +77,16 @@ namespace Ecommerce.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CountryName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("CountryId");
 
@@ -103,10 +125,8 @@ namespace Ecommerce.DAL.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("nvarchar(6)");
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -118,8 +138,8 @@ namespace Ecommerce.DAL.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -146,7 +166,7 @@ namespace Ecommerce.DAL.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("StateName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -185,20 +205,20 @@ namespace Ecommerce.DAL.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("State")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SupplierName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("SupplierId");
 
@@ -217,37 +237,51 @@ namespace Ecommerce.DAL.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("UserType")
+                    b.Property<Guid?>("SupplierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Users", "dbo");
 
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("2f2d5d8b-ece4-42fa-9b37-2f627b3ea9ab"),
+                            UserId = new Guid("19dcc06f-1880-454d-aada-a9ef20804d1f"),
                             CanLogin = true,
-                            CreatedDate = new DateTime(2022, 2, 26, 5, 17, 40, 344, DateTimeKind.Utc).AddTicks(6888),
+                            CreatedDate = new DateTime(2022, 3, 4, 19, 26, 22, 267, DateTimeKind.Utc).AddTicks(4191),
+                            Email = "admin@gmail.com",
                             IsDeleted = false,
-                            Password = "Admin@123",
-                            UserName = "admin",
-                            UserType = "admin"
+                            Password = "QWRtaW5AMTIz",
+                            UserName = "Admin",
+                            UserType = 1
                         });
                 });
 
@@ -271,6 +305,21 @@ namespace Ecommerce.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Countries");
+                });
+
+            modelBuilder.Entity("Ecommerce.DAL.Models.User", b =>
+                {
+                    b.HasOne("Ecommerce.DAL.Models.Customer", "Customers")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("Ecommerce.DAL.Models.Supplier", "Suppliers")
+                        .WithMany()
+                        .HasForeignKey("SupplierId");
+
+                    b.Navigation("Customers");
+
+                    b.Navigation("Suppliers");
                 });
 #pragma warning restore 612, 618
         }

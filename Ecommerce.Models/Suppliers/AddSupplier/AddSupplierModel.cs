@@ -9,7 +9,7 @@ namespace Ecommerce.Models.Suppliers.AddSupplier
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Please Enter Only Letters")]
         [DataType(DataType.Text)]
         [MaxLength((20))]
-        public string Name { get; set; } = string.Empty;
+        public string SupplierName { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Email Address Is Required.")]
         [RegularExpression(@"^([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4})+$", ErrorMessage = "Please enter correct email")]

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Country>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    <h3 class="text-center text-uppercase">Countries</h3>
+    <p>
+        <a href="@Url.Action("AddCountry", "Countries")" class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+        </a>
+    </p>
+    <br />
+    <table class="table table-striped">
+        <thead">
+            <tr>
+                <th style="width:70%">@Html.DisplayNameFor(country => country.First().CountryName)</th>
+                <th>Action(s)</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var country in Model)
+                {
+                <tr>
+                    <td>@country.CountryName</td>
+                    <td>
+                        <a href="@Url.Action("GetCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-primary" style="width:60px;">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a href="@Url.Action("EditCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-warning" style="width:60px;">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
+                        </a>
+                        <a href="@Url.Action("DeleteCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-danger" style="width:60px;">
+                            <i class="fa fa-trash-can" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+    </table>
+</div>
+

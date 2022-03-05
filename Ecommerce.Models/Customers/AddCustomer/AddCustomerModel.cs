@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Ecommerce.Common.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ecommerce.Models.Customers.AddCustomer
 {
@@ -33,7 +34,7 @@ namespace Ecommerce.Models.Customers.AddCustomer
         [Required(ErrorMessage = "Confirm Password Is Required.")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
-        [Compare("Password",ErrorMessage ="Password and Confirm Password Must Be Same.")]
+        [Compare("Password", ErrorMessage = "Password and Confirm Password Must Be Same.")]
         public string ConfirmPassword { get; set; } = string.Empty;
 
         [Required]
@@ -41,10 +42,7 @@ namespace Ecommerce.Models.Customers.AddCustomer
         public DateTime DOB { get; set; }
 
         [Required(ErrorMessage = "Gender Is Required.")]
-        [DataType(DataType.Text)]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please Enter Only Letters")]
-        [MaxLength((6))]
-        public string Gender { get; set; } = string.Empty;
+        public Gender Gender { get; set; }
 
         [Required(ErrorMessage = "Country Is Required.")]
         [DataType(DataType.Text)]

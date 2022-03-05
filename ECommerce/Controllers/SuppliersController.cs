@@ -1,18 +1,24 @@
 ﻿using Ecommerce.BAL.Interface;
+using Ecommerce.Common.Enum;
 using Ecommerce.DAL.Models;
+using Ecommerce.Helper.Encode;
 using Ecommerce.Models.Suppliers.AddSupplier;
 using Ecommerce.Models.Suppliers.EditSupplier;
+using ECommerce.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Controllers
 {
+    [LoggedIn]
     public class SuppliersController : Controller
     {
         private readonly IService<Supplier> service;
+        private readonly IService<User> userService;
 
-        public SuppliersController(IService<Supplier> service)
+        public SuppliersController(IService<Supplier> service, IService<User> userService)
         {
             this.service = service;
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -35,9 +41,9 @@ namespace ECommerce.Controllers
                 var supplier = new Supplier
                 {
                     SupplierId = Guid.NewGuid(),
-                    Name = model.Name,
+                    SupplierName = model.SupplierName,
                     Email = model.Email,
-                    Password = model.Password,
+                    Password = EncodeBase.EncodeBase64(model.Password),
                     Country = model.Country,
                     State = model.State,
                     City = model.City,
@@ -45,6 +51,19 @@ namespace ECommerce.Controllers
                     IsDeleted = false,
                 };
                 this.service.Insert(supplier);
+
+                var user = new User
+                {
+                    UserId = Guid.NewGuid(),
+                    SupplierId = supplier.SupplierId,
+                    Email = model.Email,
+                    Password = EncodeBase.EncodeBase64(model.Password),
+                    UserName = model.SupplierName,
+                    UserType = UserType.Supplier,
+                    CanLogin = true,
+                    CreatedDate = DateTime.UtcNow,
+                    IsDeleted = false,
+                };
                 return RedirectToAction("Index", "Suppliers");
             }
             return View();
@@ -74,7 +93,7 @@ namespace ECommerce.Controllers
                 var model = new EditSupplierModel
                 {
                     SupplierId = supplier.SupplierId,
-                    Name = supplier.Name,
+                    SupplierName = supplier.SupplierName,
                     Country = supplier.Country,
                     State = supplier.State,
                     City = supplier.City,
@@ -91,7 +110,7 @@ namespace ECommerce.Controllers
                 var supplier = this.service.Get(model.SupplierId);
                 if (supplier != null)
                 {
-                    supplier.Name= model.Name;
+                    supplier.SupplierName = model.SupplierName;
                     supplier.Country = model.Country;
                     supplier.State = model.State;
                     supplier.City = model.City;
@@ -118,7 +137,17 @@ namespace ECommerce.Controllers
         [HttpPost, ActionName("DeleteSupplier")]
         public IActionResult ConfirmDelete(Guid supplierId)
         {
+            var users = this.userService.GetAll();
             this.service.Delete(supplierId);
+
+            if (users != null && users.Count() > 0)
+            {
+                var user = users.SingleOrDefault(x => x.SupplierId == supplierId);
+                if (user != null)
+                {
+                    this.userService.Delete(user.UserId);
+                }
+            }
             return RedirectToAction("Index", "Suppliers");
         }
     }

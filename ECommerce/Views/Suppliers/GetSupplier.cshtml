@@ -4,7 +4,7 @@
     ViewData["Title"] = "GetSupplier";
 }
 
-<div class="card" style="width:80%; margin:auto;">
+<div class="card" style="margin:auto;">
     <div class="card-header bg-dark text-white">
         <h5>Supplier Details</h5>
     </div>
@@ -12,9 +12,9 @@
         <table class="table table-striped">
             <tr>
                 <td>
-                    <b>@Html.DisplayNameFor(supplier => supplier.Name)</b>
+                    <b>@Html.DisplayNameFor(supplier => supplier.SupplierName)</b>
                 </td>
-                <td>@Html.DisplayFor(supplier => supplier.Name)</td>
+                <td>@Html.DisplayFor(supplier => supplier.SupplierName)</td>
             </tr>
 
             <tr>

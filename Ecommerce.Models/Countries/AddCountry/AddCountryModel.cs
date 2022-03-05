@@ -8,6 +8,6 @@ namespace Ecommerce.Models.Counties.AddCountry
         [Display(Name = "Country Name")]
         [DataType(DataType.Text)]
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Please Enter Only Letters")]
-        public string Name { get; set; } = string.Empty;
+        public string CountryName { get; set; } = string.Empty;
     }
 }

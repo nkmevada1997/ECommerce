@@ -1,0 +1,13 @@
+﻿.login {
+    background: #54555c url(../images/main.jpg) no-repeat;
+    height: 500px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    font-size: 12pt;
+    font-family: Trebuchet MS;
+    margin: 0;
+    padding: 0;
+    color: #323343;
+}
+

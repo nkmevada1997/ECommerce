@@ -11,7 +11,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(supplier => supplier.Name)</th>
+            <th>@Html.DisplayNameFor(supplier => supplier.SupplierName)</th>
             <th>@Html.DisplayNameFor(supplier => supplier.Email)</th>
             <th>@Html.DisplayNameFor(supplier => supplier.Country)</th>
             <th>@Html.DisplayNameFor(supplier => supplier.State)</th>
@@ -23,7 +23,7 @@
         @foreach (var supplier in Model)
         {
             <tr>
-                <td>@supplier.Name</td>
+                <td>@supplier.SupplierName</td>
                 <td>@supplier.Email</td>
                 <td>@supplier.Country</td>
                 <td>@supplier.State</td>

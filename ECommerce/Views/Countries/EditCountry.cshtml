@@ -1,0 +1,35 @@
+﻿@model Ecommerce.Models.Countries.EditCountry.EditCountryModel
+
+@{
+    ViewData["Title"] = "EditCountry";
+}
+
+<div class="card" style="width:60%; margin:auto;">
+    <div class="card-header bg-dark text-white">
+        <h3>Edit Country</h3>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        @Html.LabelFor(country=> country.CountryName)
+                        @Html.TextBoxFor(country=> country.CountryName, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(country=> country.CountryName)</span>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                @Html.ActionLink("Back To List", "Index","Countries", " ",new {@class="btn btn-secondary"})
+            </div>
+        }
+    </div>
+
+</div>  

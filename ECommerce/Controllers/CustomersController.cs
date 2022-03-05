@@ -1,20 +1,28 @@
 ﻿using Ecommerce.BAL.Interface;
+using Ecommerce.Common.Enum;
 using Ecommerce.DAL.Models;
+using Ecommerce.Helper.Encode;
 using Ecommerce.Models.Customers.AddCustomer;
 using Ecommerce.Models.Customers.EditCustomer;
+using Ecommerce.Models.Dropdown;
+using ECommerce.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerce.Controllers
 {
+    [LoggedIn]
     public class CustomersController : Controller
     {
         private readonly IService<Customer> service;
         private readonly IService<User> userService;
+        private readonly IService<Country> countryService;
 
-        public CustomersController(IService<Customer> service,IService<User> userService)
+        public CustomersController(IService<Customer> service, IService<User> userService, IService<Country> countryService)
         {
             this.service = service;
             this.userService = userService;
+            this.countryService = countryService;
         }
 
         [HttpGet]
@@ -25,6 +33,22 @@ namespace ECommerce.Controllers
 
         public IActionResult AddCustomer()
         {
+            IList<CountryDropdown> countryDropdown = new List<CountryDropdown>();
+            var countries = this.countryService.GetAll();
+
+            if (countries != null && countries.Count > 0)
+            {
+                foreach (var country in countries)
+                {
+                    countryDropdown.Add(new CountryDropdown
+                    {
+                        CountryId = country.CountryId,
+                        CountryName = country.CountryName,
+                    });
+                }
+
+                ViewBag.CoutryItems = countryDropdown;
+            }
             return View();
         }
 
@@ -42,7 +66,7 @@ namespace ECommerce.Controllers
                     DOB = model.DOB,
                     Gender = model.Gender,
                     Email = model.Email,
-                    Password = model.Password,
+                    Password = EncodeBase.EncodeBase64(model.Password),
                     Country = model.Country,
                     State = model.State,
                     City = model.City,
@@ -54,9 +78,11 @@ namespace ECommerce.Controllers
                 var user = new User
                 {
                     UserId = Guid.NewGuid(),
-                    UserName = model.Email,
-                    Password = model.Password,
-                    UserType = "Customer",
+                    CustomerId = customer.CustomerId,
+                    Email = model.Email,
+                    Password = EncodeBase.EncodeBase64(model.Password),
+                    UserName = model.FirstName + " " + model.LastName,
+                    UserType = UserType.Customer,
                     CanLogin = true,
                     CreatedDate = DateTime.UtcNow,
                     IsDeleted = false,
@@ -146,7 +172,17 @@ namespace ECommerce.Controllers
         [HttpPost, ActionName("DeleteCustomer")]
         public IActionResult ConfirmDelete(Guid customerId)
         {
+            var users = this.userService.GetAll();
             this.service.Delete(customerId);
+
+            if (users != null && users.Count() > 0)
+            {
+                var user = users.SingleOrDefault(x => x.CustomerId == customerId);
+                if (user != null)
+                {
+                    this.userService.Delete(user.UserId);
+                }
+            }
             return RedirectToAction("Index", "Customers");
         }
     }

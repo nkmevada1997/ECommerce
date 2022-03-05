@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Ecommerce.Common.Enum;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ecommerce.DAL.Models
@@ -13,17 +14,24 @@ namespace Ecommerce.DAL.Models
         [Required]
         [MaxLength(50)]
         [DataType(DataType.Text)]
-        public string UserName { get; set; } = string.Empty;
+        [Display(Name = "Email")]
+        public string Email { get; set; } = string.Empty;
 
         [Required]
         [MinLength(8)]
-        [MaxLength(15)]
+        [MaxLength(50)]
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; } = string.Empty;
 
         [Required]
         [DataType(DataType.Text)]
-        public string UserType { get; set; } = string.Empty;
+        [Display(Name ="User Name")]
+        public string UserName { get; set; } = string.Empty;
+
+        [Required]
+        [Display(Name ="User Type")]
+        public UserType UserType { get; set; }
 
         [Required]
         public bool CanLogin { get; set; } = true;
@@ -31,5 +39,17 @@ namespace Ecommerce.DAL.Models
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
         public bool IsDeleted { get; set; } = false;
+
+        [Display(Name = "Customer")]
+        public virtual Guid? CustomerId { get; set; } = null;
+
+        [ForeignKey("CustomerId")]
+        public virtual Customer? Customers { get; set; } = null;
+
+        [Display(Name = "Supplier")]
+        public virtual Guid? SupplierId { get; set; } = null;
+
+        [ForeignKey("SupplierId")]
+        public virtual Supplier? Suppliers { get; set; } = null;
     }
 }

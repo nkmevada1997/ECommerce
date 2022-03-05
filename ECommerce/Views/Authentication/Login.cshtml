@@ -1,0 +1,48 @@
+﻿@model LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card" style="margin-top:250px;">
+            <div class="card-header bg-dark text-white">
+                <h5 class="text-center" style="margin-top:10px">Login </h5>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(x=> x.Email)
+                            @Html.TextBoxFor(x=> x.Email, new { @class = "form-control" })
+                            <span class="text-danger">@Html.ValidationMessageFor(x=> x.Email)</span>
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(x=> x.Password)
+                            @Html.TextBoxFor(x=> x.Password, new { @class = "form-control",type="password" })
+                            <span class="text-danger">@Html.ValidationMessageFor(x=> x.Password)</span>
+                            <br />
+                        </div>
+                    </div>
+
+                    @if (ViewBag.Message != null)
+                    {
+                        <span class="text-danger">@ViewBag.Message</span>
+                    }
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

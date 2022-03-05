@@ -11,7 +11,7 @@ namespace Ecommerce.Models.Suppliers.EditSupplier
         [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Please Enter Only Letters")]
         [DataType(DataType.Text)]
         [MaxLength((20))]
-        public string Name { get; set; } = string.Empty;
+        public string SupplierName { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Country Is Required.")]
         [DataType(DataType.Text)]

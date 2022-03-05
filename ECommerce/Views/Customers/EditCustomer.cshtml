@@ -4,12 +4,12 @@
     ViewData["Title"] = "EditCustomer";
 }
 
-<div class="card" style="width:60%; margin:auto;">
+<div class="card" style="margin:auto;">
     <div class="card-header bg-dark text-white">
         <h3>Edit Customer</h3>
     </div>
 
-     <div class="card-body">
+    <div class="card-body">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -74,7 +74,7 @@
                 </div>
             </div>
 
-             <div class="row">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         @Html.LabelFor(customer=> customer.City)
@@ -91,5 +91,5 @@
             </div>
         }
     </div>
-    
-</div>  
+
+</div>

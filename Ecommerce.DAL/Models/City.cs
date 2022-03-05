@@ -13,7 +13,8 @@ namespace Ecommerce.DAL.Models
         [Required]
         [MaxLength(100)]
         [DataType(DataType.Text)]
-        public string Name { get; set; } = string.Empty;
+        [Display(Name = "City Name")]
+        public string CityName { get; set; } = string.Empty;
 
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 

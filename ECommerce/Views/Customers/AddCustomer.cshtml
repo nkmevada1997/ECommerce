@@ -1,4 +1,5 @@
-﻿@model AddCustomerModel
+﻿@using Ecommerce.Common.Enum
+@model AddCustomerModel
 
 @{
     ViewData["Title"] = "AddCustomer";
@@ -77,19 +78,24 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         @Html.LabelFor(customer=> customer.Gender)
-                        @Html.TextBoxFor(customer=> customer.Gender, new { @class = "form-control" })
+                        @Html.DropDownListFor(customer=>customer.Gender,new SelectList(Enum.GetValues(typeof(Gender))),"Select Gender",new { @class = "form-control"})
                         <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Gender)</span>
                         <br />
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <div class="form-group">
+                     <div class="form-group">
                         @Html.LabelFor(customer=> customer.Country)
                         @Html.TextBoxFor(customer=> customer.Country, new { @class = "form-control",})
                         <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Country)</span>
                         <br />
                     </div>
+                    @*<div>
+                        @Html.LabelFor(customer=> customer.Country)
+                        @Html.DropDownListFor(x => x.Country, new SelectList(ViewBag.CoutryItems, "CountryId", "Name"),"Select Country",new { @class = "form-control"})
+                        <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Country)</span>
+                    </div>*@
                 </div>
             </div>
 
@@ -115,7 +121,7 @@
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                @Html.ActionLink("Back To List", "Index","Customers", " ",new {@class="btn btn-secondary"})
+                @Html.ActionLink("Back To List", "Index","Customers","",new {@class="btn btn-secondary"})
             </div>
         }
     </div>

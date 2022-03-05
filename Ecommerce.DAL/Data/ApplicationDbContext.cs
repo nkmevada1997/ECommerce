@@ -1,4 +1,6 @@
-﻿using Ecommerce.DAL.Models;
+﻿using Ecommerce.Common.Enum;
+using Ecommerce.DAL.Models;
+using Ecommerce.Helper.Encode;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.DAL.Data
@@ -14,22 +16,26 @@ namespace Ecommerce.DAL.Data
 
         public DbSet<Supplier> Suppliers { get; set; }
 
-        public DbSet<User> Users { get; set; }
-
         public DbSet<Country> Countries { get; set; }
 
         public DbSet<State> States { get; set; }
 
         public DbSet<City> Cities { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(new User
             {
                 UserId = Guid.NewGuid(),
-                UserName = "admin",
-                Password = "Admin@123",
-                UserType = "admin",
+                Email = "admin@gmail.com",
+                Password = EncodeBase.EncodeBase64("Admin@123"),
+                UserName = "Admin",
+                UserType = UserType.Admin,
                 CanLogin = true,
                 CreatedDate = DateTime.UtcNow,
                 IsDeleted = false,

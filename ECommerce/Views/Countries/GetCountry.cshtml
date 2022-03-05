@@ -1,0 +1,30 @@
+﻿@model Country
+
+@{
+    ViewData["Title"] = "GetCountry";
+}
+
+<div class="card" style="width:60%; margin:auto;">
+    <div class="card-header bg-dark text-white">
+        <h5>Customer Details</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(country=> country.CountryName)</b>
+                </td>
+                <td>@Html.DisplayFor(country=> country.CountryName)</td>
+            </tr>
+        </table>
+        <p>
+            <a href="@Url.Action("Index", "Countries")" class="btn btn-primary" style="width:60px;">
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+            <a href="@Url.Action("EditCountry", "Countries",new {countryId=Model.CountryId})" class="btn btn-warning" style="width:60px;">
+                <i class="fa fa-edit" aria-hidden="true"></i>
+            </a>
+        </p>
+    </div>
+</div>
+

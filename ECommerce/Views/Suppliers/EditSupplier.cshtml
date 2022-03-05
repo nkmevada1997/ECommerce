@@ -4,7 +4,7 @@
     ViewData["Title"] = "EditSupplier";
 }
 
-<div class="card" style="width:60%; margin:auto;">
+<div class="card" style="margin:auto;">
     <div class="card-header bg-dark text-white">
         <h3>Edit Supplier</h3>
     </div>
@@ -16,9 +16,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        @Html.LabelFor(supplier => supplier.Name)
-                        @Html.TextBoxFor(supplier => supplier.Name, new { @class = "form-control" })
-                        <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.Name)</span>
+                        @Html.LabelFor(supplier => supplier.SupplierName)
+                        @Html.TextBoxFor(supplier => supplier.SupplierName, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.SupplierName)</span>
                         <br />
                     </div>
                 </div>

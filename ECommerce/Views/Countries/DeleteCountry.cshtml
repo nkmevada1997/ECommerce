@@ -1,0 +1,32 @@
+﻿@model Country
+
+@{
+    ViewData["Title"] = "DeleteCountry";
+}
+
+<h3 class="text-center text-uppercase">Delete Country</h3>
+<div class="card" style="width:80%; margin:auto;">
+    <div class="card-header">
+        <h3>Are you sure you want to delete this?</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(country=> country.CountryName)</b>
+                </td>
+                <td>@Html.DisplayFor(country=> country.CountryName)</td>
+            </tr>
+
+
+        </table>
+          @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index","Countries"," ",new {@class="btn btn-secondary"})
+        </div>
+    }
+    </div>
+</div>
