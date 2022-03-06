@@ -274,9 +274,9 @@ namespace Ecommerce.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("19dcc06f-1880-454d-aada-a9ef20804d1f"),
+                            UserId = new Guid("f2fcf625-bbbd-43a6-ba00-d2eb66252c69"),
                             CanLogin = true,
-                            CreatedDate = new DateTime(2022, 3, 4, 19, 26, 22, 267, DateTimeKind.Utc).AddTicks(4191),
+                            CreatedDate = new DateTime(2022, 3, 5, 17, 3, 34, 388, DateTimeKind.Utc).AddTicks(1089),
                             Email = "admin@gmail.com",
                             IsDeleted = false,
                             Password = "QWRtaW5AMTIz",
@@ -298,13 +298,13 @@ namespace Ecommerce.DAL.Migrations
 
             modelBuilder.Entity("Ecommerce.DAL.Models.State", b =>
                 {
-                    b.HasOne("Ecommerce.DAL.Models.Country", "Countries")
+                    b.HasOne("Ecommerce.DAL.Models.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Countries");
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("Ecommerce.DAL.Models.User", b =>

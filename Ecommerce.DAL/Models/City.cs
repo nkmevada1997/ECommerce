@@ -20,10 +20,11 @@ namespace Ecommerce.DAL.Models
 
         public bool IsDeleted { get; set; } = false;
 
+        [Required]
         [Display(Name = "State")]
         public virtual Guid StateId { get; set; }
 
         [ForeignKey("StateId")]
-        public virtual State States { get; set; } = new State();
+        public virtual State? States { get; set; }
     }
 }

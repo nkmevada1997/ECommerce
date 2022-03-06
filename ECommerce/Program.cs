@@ -4,6 +4,7 @@ using Ecommerce.DAL.Data;
 using Ecommerce.DAL.Interface;
 using Ecommerce.DAL.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,5 +44,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Authentication}/{action=Login}/{id?}");
+
+/*app.UseStaticFiles(new StaticFileOptions { FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images")), RequestPath = "/wwwroot/images" });*/
 
 app.Run();

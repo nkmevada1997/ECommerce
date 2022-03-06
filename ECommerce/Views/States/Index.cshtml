@@ -15,7 +15,7 @@
     <thead">
         <tr>
             <th style="width:40%">@Html.DisplayNameFor(state=> state.StateName)</th>
-            <th style="width:30%">@Html.DisplayNameFor(state=> state.Countries.CountryName)</th>
+            <th style="width:30%">@Html.DisplayNameFor(state=> state.Country.CountryName)</th>
             <th>Action(s)</th>
         </tr>
         </thead>
@@ -24,7 +24,7 @@
             {
             <tr>
                 <td>@state.StateName</td>
-                <td>@state.Countries.CountryName</td>
+                <td>@state.Country.CountryName</td>
                 <td>
                     <a href="@Url.Action("GetState", "States",new {stateId=state.StateId})" class="btn btn-primary" style="width:60px;">
                         <i class="fa fa-eye"></i>

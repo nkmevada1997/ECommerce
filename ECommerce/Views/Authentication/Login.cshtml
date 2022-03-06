@@ -6,16 +6,16 @@
 
 <div class="row justify-content-center">
     <div class="col-md-5">
-        <div class="card" style="margin-top:250px;">
+        <div class="card bg-dark text-light" style="margin-top:250px; height:400px">
             <div class="card-header bg-dark text-white">
                 <h5 class="text-center" style="margin-top:10px">Login </h5>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="border-top:1px solid white">
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
 
-                    <div class="row">
+                    <div class="row mt-4">
                         <div class="form-group">
                             @Html.LabelFor(x=> x.Email)
                             @Html.TextBoxFor(x=> x.Email, new { @class = "form-control" })
@@ -24,7 +24,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mt-4">
                         <div class="form-group">
                             @Html.LabelFor(x=> x.Password)
                             @Html.TextBoxFor(x=> x.Password, new { @class = "form-control",type="password" })
@@ -38,8 +38,8 @@
                         <span class="text-danger">@ViewBag.Message</span>
                     }
 
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group text-center mt-4">
+                        <button type="submit" class="btn btn-info" style="width:300px;">Submit</button>
                     </div>
                 }
             </div>

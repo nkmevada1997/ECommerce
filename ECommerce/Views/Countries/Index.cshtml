@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Country>
-
 @{
     ViewData["Title"] = "Index";
 }
@@ -15,7 +14,7 @@
     <table class="table table-striped">
         <thead">
             <tr>
-                <th style="width:70%">@Html.DisplayNameFor(country => country.First().CountryName)</th>
+                <th style="width:70%">@Html.DisplayNameFor(country => country.CountryName)</th>
                 <th>Action(s)</th>
             </tr>
             </thead>
@@ -39,5 +38,6 @@
                 }
             </tbody>
     </table>
+    <br />
 </div>
 

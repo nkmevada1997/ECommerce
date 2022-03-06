@@ -4,7 +4,7 @@ using Ecommerce.DAL.Models;
 using Ecommerce.Helper.Encode;
 using Ecommerce.Models.Suppliers.AddSupplier;
 using Ecommerce.Models.Suppliers.EditSupplier;
-using ECommerce.Attributes;
+using ECommerce.Helper.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Controllers

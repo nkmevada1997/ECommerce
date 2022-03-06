@@ -2,7 +2,7 @@
 using Ecommerce.DAL.Models;
 using Ecommerce.Models.Cities.AddCity;
 using Ecommerce.Models.Cities.EditCity;
-using ECommerce.Attributes;
+using ECommerce.Helper.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Controllers

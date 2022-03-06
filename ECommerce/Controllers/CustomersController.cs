@@ -5,9 +5,8 @@ using Ecommerce.Helper.Encode;
 using Ecommerce.Models.Customers.AddCustomer;
 using Ecommerce.Models.Customers.EditCustomer;
 using Ecommerce.Models.Dropdown;
-using ECommerce.Attributes;
+using ECommerce.Helper.Attributes;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerce.Controllers
 {

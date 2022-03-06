@@ -1,9 +1,10 @@
 ﻿using Ecommerce.BAL.Interface;
+using Ecommerce.DAL.Data;
 using Ecommerce.DAL.Models;
 using Ecommerce.Models.Dropdown;
 using Ecommerce.Models.States.AddState;
 using Ecommerce.Models.States.EditState;
-using ECommerce.Attributes;
+using ECommerce.Helper.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Controllers
@@ -13,17 +14,19 @@ namespace ECommerce.Controllers
     {
         private readonly IService<State> service;
         private readonly IService<Country> countryService;
+        private readonly ApplicationDbContext context;
 
-        public StatesController(IService<State> service, IService<Country> countryService)
+        public StatesController(IService<State> service, IService<Country> countryService, ApplicationDbContext context)
         {
             this.service = service;
             this.countryService = countryService;
+            this.context = context;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return View(this.service.GetAll());
+            return View(this.countryService.GetAll());
         }
 
         public IActionResult AddState()

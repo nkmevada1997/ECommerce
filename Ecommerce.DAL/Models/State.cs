@@ -20,11 +20,12 @@ namespace Ecommerce.DAL.Models
 
         public bool IsDeleted { get; set; } = false;
 
+        [Required]
         [Display(Name = "Country")]
         public virtual Guid CountryId { get; set; }
 
         [ForeignKey("CountryId")]
 
-        public virtual Country Countries { get; set; } = new Country();
+        public virtual Country? Country { get; set; } 
     }
 }

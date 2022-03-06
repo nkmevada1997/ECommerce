@@ -12,8 +12,8 @@
 </p>
 <br />
 <table class="table table-striped">
-    <thead">
-        <tr>
+    <thead>
+        <tr class="bg-dark text-light">
             <th>@Html.DisplayNameFor(customer => customer.FirstName)</th>
             <th>@Html.DisplayNameFor(customer => customer.LastName)</th>
             <th>@Html.DisplayNameFor(customer => customer.Email)</th>
@@ -28,7 +28,7 @@
         <tbody>
             @foreach (var customer in Model)
             {
-            <tr>
+            <tr class="bg-dark text-light">
                 <td>@customer.FirstName</td>
                 <td>@customer.LastName</td>
                 <td>@customer.Email</td>
