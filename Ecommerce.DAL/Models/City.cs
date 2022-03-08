@@ -25,6 +25,6 @@ namespace Ecommerce.DAL.Models
         public virtual Guid StateId { get; set; }
 
         [ForeignKey("StateId")]
-        public virtual State? States { get; set; }
+        public virtual State? State { get; set; } 
     }
 }

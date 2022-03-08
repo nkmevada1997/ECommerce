@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Ecommerce.Models.Counties.AddCountry
+namespace Ecommerce.Models.Countries.AddCountry
 {
     public class AddCountryModel
     {

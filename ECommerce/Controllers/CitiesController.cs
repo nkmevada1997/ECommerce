@@ -1,9 +1,12 @@
 ﻿using Ecommerce.BAL.Interface;
+using Ecommerce.DAL.Data;
 using Ecommerce.DAL.Models;
 using Ecommerce.Models.Cities.AddCity;
 using Ecommerce.Models.Cities.EditCity;
+using Ecommerce.Models.Dropdown;
 using ECommerce.Helper.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Controllers
 {
@@ -11,20 +14,39 @@ namespace ECommerce.Controllers
     public class CitiesController : Controller
     {
         private readonly IService<City> service;
+        private readonly IService<State> stateService;
+        private readonly ApplicationDbContext context;
 
-        public CitiesController(IService<City> service)
+        public CitiesController(IService<City> service, IService<State> stateService, ApplicationDbContext context)
         {
             this.service = service;
+            this.stateService = stateService;
+            this.context = context;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return View(this.service.GetAll());
+            return View(this.context.Cities.Where(x => x.IsDeleted == false).Include(x => x.State).ToList());
         }
 
         public IActionResult AddCity()
         {
+            IList<StatesDropdown> statesDropdownList = new List<StatesDropdown>();
+            var states = this.stateService.GetAll().Where(x => x.IsDeleted == false).ToList();
+
+            if (states != null && states.Count > 0)
+            {
+                foreach (var state in states)
+                {
+                    statesDropdownList.Add(new StatesDropdown
+                    {
+                        StateId = state.StateId,
+                        StateName = state.StateName,
+                    });
+                }
+                ViewBag.StateItems = statesDropdownList.Count > 0 ? statesDropdownList : new List<StatesDropdown>();
+            }
             return View();
         }
 
@@ -59,6 +81,9 @@ namespace ECommerce.Controllers
                 return NotFound();
             }
 
+            var state = this.stateService.Get(city.StateId);
+            city.State = state;
+
             return View(city);
         }
 
@@ -78,6 +103,22 @@ namespace ECommerce.Controllers
                     StateId = city.StateId,
                     CityName = city.CityName,
                 };
+
+                IList<StatesDropdown> statesDropdownList = new List<StatesDropdown>();
+                var states = this.stateService.GetAll().Where(x => x.IsDeleted == false).ToList();
+
+                if (states != null && states.Count > 0)
+                {
+                    foreach (var state in states)
+                    {
+                        statesDropdownList.Add(new StatesDropdown
+                        {
+                            StateId = state.StateId,
+                            StateName = state.StateName,
+                        });
+                    }
+                    ViewBag.StateItems = statesDropdownList;
+                }
                 return View(model);
             }
         }
@@ -87,11 +128,11 @@ namespace ECommerce.Controllers
         {
             if (ModelState.IsValid)
             {
-                var city= this.service.Get(model.CityId);
+                var city = this.service.Get(model.CityId);
                 if (city != null)
                 {
                     city.CityName = model.CityName;
-                    city.StateId= model.StateId;
+                    city.StateId = model.StateId;
                     this.service.Update(city);
 
                     return RedirectToAction("Index", "Cities");
@@ -109,16 +150,26 @@ namespace ECommerce.Controllers
                 return NotFound();
             }
 
+            var state = this.stateService.Get(city.StateId);
+            city.State = state;
+
             return View(city);
         }
 
         [HttpPost, ActionName("DeleteCity")]
-        public IActionResult ConfirmDelete(Guid stateId)
+        public IActionResult ConfirmDelete(Guid cityId)
         {
-            this.service.Delete(stateId);
+            var city = this.service.Get(cityId);
+
+            if (city != null)
+            {
+                city.IsDeleted = true;
+                this.service.Update(city);
+            }
+
             return RedirectToAction("Index", "Cities");
         }
 
-        
+
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Ecommerce.BAL.Interface;
 using Ecommerce.DAL.Models;
-using Ecommerce.Models.Counties.AddCountry;
+using Ecommerce.Models.Countries.AddCountry;
 using Ecommerce.Models.Countries.EditCountry;
 using ECommerce.Helper.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace ECommerce.Controllers
 {
@@ -18,9 +19,9 @@ namespace ECommerce.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            return View(this.service.GetAll().OrderBy(x => x.CountryName));
+            return View(this.service.GetAll().Where(x => x.IsDeleted == false).OrderBy(x => x.CountryName).ToPagedList(page ?? 1, 5));
         }
 
         public IActionResult AddCountry()
@@ -112,7 +113,12 @@ namespace ECommerce.Controllers
         [HttpPost, ActionName("DeleteCountry")]
         public IActionResult ConfirmDelete(Guid countryId)
         {
-            this.service.Delete(countryId);
+            var country = this.service.Get(countryId);
+            if (country != null)
+            {
+                country.IsDeleted = true;
+                this.service.Update(country);
+            }
             return RedirectToAction("Index", "Countries");
         }
 

@@ -12,20 +12,19 @@ namespace Ecommerce.DAL.Data
 
         }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Customer>? Customers { get; set; }
 
-        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Supplier>? Suppliers { get; set; }
 
-        public DbSet<Country> Countries { get; set; }
+        public DbSet<Country>? Countries { get; set; }
 
-        public DbSet<State> States { get; set; }
+        public DbSet<State>? States { get; set; }
 
-        public DbSet<City> Cities { get; set; }
+        public DbSet<City>? Cities { get; set; }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Category>? Categories { get; set; }
 
-        public DbSet<User> Users { get; set; }
-
+        public DbSet<User>? Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

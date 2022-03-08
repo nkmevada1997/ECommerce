@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220305170334_Ecommerce")]
-    partial class Ecommerce
+    [Migration("20220308192306_Ecommerce_Cities")]
+    partial class Ecommerce_Cities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,28 +23,6 @@ namespace Ecommerce.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Ecommerce.DAL.Models.Category", b =>
-                {
-                    b.Property<Guid>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("CategoryId");
-
-                    b.ToTable("Categories", "dbo");
-                });
 
             modelBuilder.Entity("Ecommerce.DAL.Models.City", b =>
                 {
@@ -227,75 +205,15 @@ namespace Ecommerce.DAL.Migrations
                     b.ToTable("Suppliers", "dbo");
                 });
 
-            modelBuilder.Entity("Ecommerce.DAL.Models.User", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("CanLogin")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<Guid?>("SupplierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserType")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("Users", "dbo");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("f2fcf625-bbbd-43a6-ba00-d2eb66252c69"),
-                            CanLogin = true,
-                            CreatedDate = new DateTime(2022, 3, 5, 17, 3, 34, 388, DateTimeKind.Utc).AddTicks(1089),
-                            Email = "admin@gmail.com",
-                            IsDeleted = false,
-                            Password = "QWRtaW5AMTIz",
-                            UserName = "Admin",
-                            UserType = 1
-                        });
-                });
-
             modelBuilder.Entity("Ecommerce.DAL.Models.City", b =>
                 {
-                    b.HasOne("Ecommerce.DAL.Models.State", "States")
+                    b.HasOne("Ecommerce.DAL.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("States");
+                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("Ecommerce.DAL.Models.State", b =>
@@ -307,21 +225,6 @@ namespace Ecommerce.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("Ecommerce.DAL.Models.User", b =>
-                {
-                    b.HasOne("Ecommerce.DAL.Models.Customer", "Customers")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("Ecommerce.DAL.Models.Supplier", "Suppliers")
-                        .WithMany()
-                        .HasForeignKey("SupplierId");
-
-                    b.Navigation("Customers");
-
-                    b.Navigation("Suppliers");
                 });
 #pragma warning restore 612, 618
         }
