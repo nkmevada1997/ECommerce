@@ -1,7 +1,7 @@
-﻿@model Country
+﻿@model State
 
 @{
-    ViewData["Title"] = "DeleteCountry";
+    ViewData["Title"] = "DeleteState";
 }
 
 <h3 class="text-center text-uppercase text-light">Delete Country</h3>
@@ -15,13 +15,20 @@
                 <table class="table table-striped table-dark">
                     <tr>
                         <td width="40%">
-                            <b>@Html.DisplayNameFor(country=> country.CountryName)</b>
+                            <b>@Html.DisplayNameFor(state=> state.StateName)</b>
                         </td>
-                        <td>@Html.DisplayFor(country=> country.CountryName)</td>
+                        <td>@Html.DisplayFor(state=> state.StateName)</td>
+                    </tr>
+
+                    <tr>
+                        <td width="40%">
+                            <b>@Html.DisplayNameFor(state=> state.Country.CountryName)</b>
+                        </td>
+                        <td>@Html.DisplayFor(state=> state.Country.CountryName)</td>
                     </tr>
                     <tr>
                         <td>
-                            <b>@Html.DisplayNameFor(country => country.CreatedDate)</b>
+                            <b>@Html.DisplayNameFor(state=> state.CreatedDate)</b>
                         </td>
                         <td>@Model.CreatedDate.ToString("dd/MM/yyyyy hh:mm:tt")</td>
                     </tr>
@@ -36,9 +43,9 @@
                             <i class="fa fa-trash-can"></i>
                             <span>Delete </span>
                         </button> |
-                        <a href="@Url.Action("Index", "Countries")" class="btn btn-secondary ml-3">
+                        <a href="@Url.Action("Index", "States")" class="btn btn-secondary ml-3">
                             <i class="fa fa-list"></i>
-                            <span>Customers</span>
+                            <span>States</span>
                         </a>
                     </div>
                 </div>
@@ -47,3 +54,5 @@
         </div>
     </div>
 </div>
+
+

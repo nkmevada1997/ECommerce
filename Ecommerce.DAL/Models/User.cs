@@ -44,12 +44,12 @@ namespace Ecommerce.DAL.Models
         public virtual Guid? CustomerId { get; set; } = null;
 
         [ForeignKey("CustomerId")]
-        public virtual Customer? Customers { get; set; } = null;
+        public virtual Customer? Customer { get; set; } = null;
 
         [Display(Name = "Supplier")]
         public virtual Guid? SupplierId { get; set; } = null;
 
         [ForeignKey("SupplierId")]
-        public virtual Supplier? Suppliers { get; set; } = null;
+        public virtual Supplier? Supplier { get; set; } = null;
     }
 }

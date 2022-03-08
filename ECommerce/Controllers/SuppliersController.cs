@@ -24,7 +24,7 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(this.service.GetAll());
+            return View(this.service.GetAll().Where(x => x.IsDeleted == false).ToList());
         }
 
         public IActionResult AddSupplier()
@@ -64,6 +64,8 @@ namespace ECommerce.Controllers
                     CreatedDate = DateTime.UtcNow,
                     IsDeleted = false,
                 };
+
+                this.userService.Insert(user);
                 return RedirectToAction("Index", "Suppliers");
             }
             return View();
@@ -138,8 +140,13 @@ namespace ECommerce.Controllers
         public IActionResult ConfirmDelete(Guid supplierId)
         {
             var users = this.userService.GetAll();
-            this.service.Delete(supplierId);
+            var supplier = this.service.Get(supplierId);
 
+            if (supplier != null)
+            {
+                supplier.IsDeleted = true;
+                this.service.Update(supplier);
+            }
             if (users != null && users.Count() > 0)
             {
                 var user = users.SingleOrDefault(x => x.SupplierId == supplierId);

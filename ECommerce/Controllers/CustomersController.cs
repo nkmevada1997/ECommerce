@@ -27,19 +27,19 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(this.service.GetAll());
+            return View(this.service.GetAll().Where(x => x.IsDeleted == false).ToList());
         }
 
         public IActionResult AddCustomer()
         {
-            IList<CountryDropdown> countryDropdown = new List<CountryDropdown>();
-            var countries = this.countryService.GetAll();
+            /*IList<CountriesDropdown> countryDropdown = new List<CountriesDropdown>();
+            var countries = this.countryService.GetAll().Where(x => x.IsDeleted == false).ToList();
 
             if (countries != null && countries.Count > 0)
             {
                 foreach (var country in countries)
                 {
-                    countryDropdown.Add(new CountryDropdown
+                    countryDropdown.Add(new CountriesDropdown
                     {
                         CountryId = country.CountryId,
                         CountryName = country.CountryName,
@@ -47,7 +47,7 @@ namespace ECommerce.Controllers
                 }
 
                 ViewBag.CoutryItems = countryDropdown;
-            }
+            }*/
             return View();
         }
 
@@ -103,6 +103,7 @@ namespace ECommerce.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Header = customer.FirstName + " " + customer.LastName;
 
             return View(customer);
         }
@@ -172,7 +173,14 @@ namespace ECommerce.Controllers
         public IActionResult ConfirmDelete(Guid customerId)
         {
             var users = this.userService.GetAll();
-            this.service.Delete(customerId);
+
+            var customer = this.service.Get(customerId);
+
+            if (customer != null)
+            {
+                customer.IsDeleted = true;
+                this.service.Update(customer);
+            }
 
             if (users != null && users.Count() > 0)
             {

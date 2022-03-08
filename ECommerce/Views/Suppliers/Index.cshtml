@@ -4,11 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h3 class="text-center text-uppercase">List of Suppliers</h3>
+<h3 class="text-light">
+    <i class="fa-solid fa-truck"></i>
+    <span>Suppliers</span>
+</h3>
 <p>
-    @Html.ActionLink("Add Supplier", "AddSupplier","Suppliers"," ",new {@class="btn btn-primary" })
+    <a href="@Url.Action("AddSupplier", "Suppliers")" class="btn btn-primary mt-3">
+        <i class="fa fa-plus"></i>
+        <span>Add Supplier</span>
+    </a>
 </p>
-<table class="table table-striped">
+<table class="table table-striped table-dark text-center">
     <thead>
         <tr>
             <th>@Html.DisplayNameFor(supplier => supplier.SupplierName)</th>
@@ -16,6 +22,7 @@
             <th>@Html.DisplayNameFor(supplier => supplier.Country)</th>
             <th>@Html.DisplayNameFor(supplier => supplier.State)</th>
             <th>@Html.DisplayNameFor(supplier => supplier.City)</th>
+            <th>@Html.DisplayNameFor(supplier => supplier.CreatedDate)</th>
             <th>Action(s)</th>
         </tr>
     </thead>
@@ -28,10 +35,17 @@
                 <td>@supplier.Country</td>
                 <td>@supplier.State</td>
                 <td>@supplier.City</td>
+                <td>@supplier.CreatedDate.ToString("dd/MM/yyyy hh:mm:tt")</td>
                 <td>
-                    @Html.ActionLink("Details","GetSupplier","Suppliers",new {supplierId=supplier.SupplierId},new {@class="btn btn-info"})
-                    @Html.ActionLink("Edit", "EditSupplier","Suppliers", new { supplierId= supplier.SupplierId}, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Delete", "DeleteSupplier","Suppliers", new { supplierId=supplier.SupplierId}, new { @class = "btn btn-danger" })
+                    <a href="@Url.Action("GetSupplier", "Suppliers",new {supplierId=supplier.SupplierId})" class="btn btn-primary" style="width:60px;">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <a href="@Url.Action("EditSupplier", "Suppliers",new {supplierId=supplier.SupplierId})" class="btn btn-warning" style="width:60px;">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                    </a>
+                    <a href="@Url.Action("DeleteSupplier", "Suppliers",new {supplierId=supplier.SupplierId})" class="btn btn-danger" style="width:60px;">
+                        <i class="fa fa-trash-can" aria-hidden="true"></i>
+                    </a>
                 </td>
             </tr>
         }

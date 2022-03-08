@@ -4,6 +4,7 @@ using Ecommerce.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220308192323_Ecommerce_Categories")]
+    partial class Ecommerce_Categories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,66 +227,6 @@ namespace Ecommerce.DAL.Migrations
                     b.ToTable("Suppliers", "dbo");
                 });
 
-            modelBuilder.Entity("Ecommerce.DAL.Models.User", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("CanLogin")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<Guid?>("SupplierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserType")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("Users", "dbo");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("ea654d18-1cf3-4d2f-9bbd-24edcee8043c"),
-                            CanLogin = true,
-                            CreatedDate = new DateTime(2022, 3, 8, 19, 23, 38, 127, DateTimeKind.Utc).AddTicks(1394),
-                            Email = "admin@gmail.com",
-                            IsDeleted = false,
-                            Password = "QWRtaW5AMTIz",
-                            UserName = "Admin",
-                            UserType = 1
-                        });
-                });
-
             modelBuilder.Entity("Ecommerce.DAL.Models.City", b =>
                 {
                     b.HasOne("Ecommerce.DAL.Models.State", "State")
@@ -305,21 +247,6 @@ namespace Ecommerce.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("Ecommerce.DAL.Models.User", b =>
-                {
-                    b.HasOne("Ecommerce.DAL.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("Ecommerce.DAL.Models.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Supplier");
                 });
 #pragma warning restore 612, 618
         }

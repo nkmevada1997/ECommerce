@@ -4,6 +4,7 @@
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
+    background-attachment: fixed;
     font-size: 12pt;
     font-family: Trebuchet MS;
     margin: 0;
@@ -11,15 +12,27 @@
     color: #323343;
 }
 
-.adminLayout{
+.adminLayout {
     background: #54555c url("../images/Admin/dragon.jpg") no-repeat;
     height: 500px; /* You must set a specified height */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
+    background-attachment: fixed;
     font-size: 12pt;
     font-family: Trebuchet MS;
     margin: 0;
     padding: 0;
     color: #323343;
+}
+
+.block {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #04AA6D;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
 }

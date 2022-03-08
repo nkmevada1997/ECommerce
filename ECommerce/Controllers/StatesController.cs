@@ -6,6 +6,7 @@ using Ecommerce.Models.States.AddState;
 using Ecommerce.Models.States.EditState;
 using ECommerce.Helper.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Controllers
 {
@@ -26,25 +27,25 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(this.countryService.GetAll());
+            return View(this.context.States.Where(x => x.IsDeleted == false).Include(x => x.Country).ToList());
         }
 
         public IActionResult AddState()
         {
-            IList<CountryDropdown> countryDropdown = new List<CountryDropdown>();
-            var countries = this.countryService.GetAll();
+            IList<CountriesDropdown> countriesDropdownList = new List<CountriesDropdown>();
+            var countries = this.countryService.GetAll().Where(x => x.IsDeleted == false).ToList();
 
             if (countries != null && countries.Count > 0)
             {
                 foreach (var country in countries)
                 {
-                    countryDropdown.Add(new CountryDropdown
+                    countriesDropdownList.Add(new CountriesDropdown
                     {
                         CountryId = country.CountryId,
                         CountryName = country.CountryName,
                     });
                 }
-                ViewBag.CoutryItems = countryDropdown;
+                ViewBag.CoutryItems = countriesDropdownList;
             }
             return View();
         }
@@ -80,6 +81,8 @@ namespace ECommerce.Controllers
                 return NotFound();
             }
 
+            var country = this.countryService.Get(state.CountryId);
+            state.Country = country;
             return View(state);
         }
 
@@ -99,6 +102,22 @@ namespace ECommerce.Controllers
                     CountryId = state.CountryId,
                     StateName = state.StateName,
                 };
+
+                IList<CountriesDropdown> countriesDropdownList = new List<CountriesDropdown>();
+                var countries = this.countryService.GetAll().Where(x => x.IsDeleted == false).ToList();
+
+                if (countries != null && countries.Count > 0)
+                {
+                    foreach (var country in countries)
+                    {
+                        countriesDropdownList.Add(new CountriesDropdown
+                        {
+                            CountryId = country.CountryId,
+                            CountryName = country.CountryName,
+                        });
+                    }
+                    ViewBag.CoutryItems = countriesDropdownList;
+                }
                 return View(model);
             }
         }
@@ -129,6 +148,8 @@ namespace ECommerce.Controllers
             {
                 return NotFound();
             }
+            var country = this.countryService.Get(state.CountryId);
+            state.Country = country;
 
             return View(state);
         }
@@ -136,7 +157,13 @@ namespace ECommerce.Controllers
         [HttpPost, ActionName("DeleteState")]
         public IActionResult ConfirmDelete(Guid stateId)
         {
-            this.service.Delete(stateId);
+            var state = this.service.Get(stateId);
+
+            if (state != null)
+            {
+                state.IsDeleted = true;
+                this.service.Update(state);
+            }
             return RedirectToAction("Index", "States");
         }
     }

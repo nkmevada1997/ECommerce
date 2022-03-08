@@ -1,6 +1,6 @@
 ﻿namespace Ecommerce.Models.Dropdown
 {
-    public class CountryDropdown
+    public class CountriesDropdown
     {
         public Guid CountryId { get; set; }
 
