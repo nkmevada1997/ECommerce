@@ -45,14 +45,20 @@
                 </tbody>
         </table>
         <br />
-
-        <div id='Paging' style="text-align:center" class="text-light bg-dark">
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-            of @Model.PageCount
+        <div id='Paging' style="text-align:center;" class="text-light bg-dark paging">
+            <span>
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                of @Model.PageCount
+            </span>
         </div>
 
-        <div>
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        <br />
+        <div class="text-light bg-dark">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
         </div>
     </div>
 

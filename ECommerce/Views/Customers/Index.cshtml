@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Customer>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core;
+@model IPagedList<Customer>
 
 @{
     ViewData["Title"] = "Index";
@@ -20,15 +22,15 @@
         <table class="table table-striped table-dark text-center">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(customer => customer.FirstName)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.LastName)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.Email)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.DOB)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.Gender)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.Country)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.State)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.City)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.CreatedDate)</th>
+                    <th>@Html.DisplayNameFor(customer => customer.First().FirstName)</th>
+                    <th>@Html.DisplayNameFor(customer => customer.First().LastName)</th>
+                    <th>@Html.DisplayNameFor(customer => customer.First().Email)</th>
+                    <th>@Html.DisplayNameFor(customer => customer.First().DOB)</th>
+                    <th>@Html.DisplayNameFor(customer => customer.First().Gender)</th>
+                    <th>@Html.DisplayNameFor(customer => customer.First().Country)</th>
+                    <th>@Html.DisplayNameFor(customer => customer.First().State)</th>
+                    <th>@Html.DisplayNameFor(customer => customer.First().City)</th>
+                    <th>@Html.DisplayNameFor(customer => customer.First().CreatedDate)</th>
                     <th>Action(s)</th>
                 </tr>
             </thead>
@@ -60,5 +62,22 @@
                 }
             </tbody>
         </table>
+
+        <br />
+        <div id='Paging' style="text-align:center;" class="text-light bg-dark paging">
+            <span>
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                of @Model.PageCount
+            </span>
+        </div>
+
+        <br />
+        <div class="text-light bg-dark">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
     </div>
 </div>

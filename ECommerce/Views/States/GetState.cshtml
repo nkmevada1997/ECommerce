@@ -19,7 +19,7 @@
                         <td>@Html.DisplayFor(state=> state.StateName)</td>
                     </tr>
 
-                     <tr>
+                    <tr>
                         <td width="20%">
                             <b>@Html.DisplayNameFor(state=> state.Country.CountryName)</b>
                         </td>
@@ -35,11 +35,11 @@
                 </table>
                 <div style="border-top:3px solid white">
                     <div class="mt-3 text-center">
-                        <a href="@Url.Action("EditCustomer", "Customers",new {stateId=Model.StateId})" class="btn btn-warning">
+                        <a href="@Url.Action("EditState", "States",new {stateId=Model.StateId})" class="btn btn-warning">
                             <i class="fa fa-edit"></i>
                             <span>Edit State</span>
                         </a>
-                        <a href="@Url.Action("Index", "Countries")" class="btn btn-secondary">
+                        <a href="@Url.Action("Index", "States")" class="btn btn-secondary">
                             <i class="fa fa-list"></i>
                             <span>States</span>
                         </a>
