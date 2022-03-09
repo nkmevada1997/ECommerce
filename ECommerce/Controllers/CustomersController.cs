@@ -7,6 +7,7 @@ using Ecommerce.Models.Customers.EditCustomer;
 using Ecommerce.Models.Dropdown;
 using ECommerce.Helper.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace ECommerce.Controllers
 {
@@ -16,38 +17,45 @@ namespace ECommerce.Controllers
         private readonly IService<Customer> service;
         private readonly IService<User> userService;
         private readonly IService<Country> countryService;
+        private readonly IService<State> stateService;
+        private readonly IService<City> cityService;
 
-        public CustomersController(IService<Customer> service, IService<User> userService, IService<Country> countryService)
+        public CustomersController(IService<Customer> service, IService<User> userService, IService<Country> countryService, IService<State> stateService, IService<City> cityService)
         {
             this.service = service;
             this.userService = userService;
             this.countryService = countryService;
+            this.stateService = stateService;
+            this.cityService = cityService;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            return View(this.service.GetAll().Where(x => x.IsDeleted == false).ToList());
+            return View(this.service.GetAll().Where(x => x.IsDeleted == false).ToList().ToPagedList(page ?? 1, 5));
         }
 
         public IActionResult AddCustomer()
         {
-            /*IList<CountriesDropdown> countryDropdown = new List<CountriesDropdown>();
+            IList<CountriesDropdown> countriesDropdownList = new List<CountriesDropdown>();
             var countries = this.countryService.GetAll().Where(x => x.IsDeleted == false).ToList();
+            var states = this.stateService.GetAll().Where(x => x.IsDeleted == false).ToList();
+            var cities = this.cityService.GetAll().Where(x => x.IsDeleted == false).ToList();
 
             if (countries != null && countries.Count > 0)
             {
                 foreach (var country in countries)
                 {
-                    countryDropdown.Add(new CountriesDropdown
+                    countriesDropdownList.Add(new CountriesDropdown
                     {
                         CountryId = country.CountryId,
                         CountryName = country.CountryName,
                     });
                 }
 
-                ViewBag.CoutryItems = countryDropdown;
-            }*/
+                ViewBag.CoutryItems = countriesDropdownList;
+            }
+
             return View();
         }
 

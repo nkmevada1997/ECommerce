@@ -7,6 +7,7 @@ using Ecommerce.Models.States.EditState;
 using ECommerce.Helper.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace ECommerce.Controllers
 {
@@ -25,9 +26,9 @@ namespace ECommerce.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            return View(this.context.States.Where(x => x.IsDeleted == false).Include(x => x.Country).ToList());
+            return View(this.context.States.Where(x => x.IsDeleted == false).Include(x => x.Country).ToList().ToPagedList(page ?? 1, 5));
         }
 
         public IActionResult AddState()
