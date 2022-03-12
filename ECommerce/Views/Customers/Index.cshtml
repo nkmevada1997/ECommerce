@@ -46,7 +46,7 @@
                         <td>@customer.Country</td>
                         <td>@customer.State</td>
                         <td>@customer.City</td>
-                        <td>@customer.CreatedDate.ToString("dd/MM/yyyy hh:mm:tt")</td>
+                        <td>@TimeZoneInfo.ConvertTimeFromUtc(@customer.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                         <td>
                             <a href="@Url.Action("GetCustomer", "Customers",new {customerId=customer.CustomerId})" class="btn btn-primary" style="width:60px;">
                                 <i class="fa fa-eye"></i>

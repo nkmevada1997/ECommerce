@@ -39,7 +39,7 @@
                         <td>@supplier.Country</td>
                         <td>@supplier.State</td>
                         <td>@supplier.City</td>
-                        <td>@supplier.CreatedDate.ToString("dd/MM/yyyy hh:mm:tt")</td>
+                        <td>@TimeZoneInfo.ConvertTimeFromUtc(@supplier.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                         <td>
                             <a href="@Url.Action("GetSupplier", "Suppliers",new {supplierId=supplier.SupplierId})" class="btn btn-primary" style="width:60px;">
                                 <i class="fa fa-eye"></i>

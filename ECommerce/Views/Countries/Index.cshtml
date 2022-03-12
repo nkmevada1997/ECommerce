@@ -28,7 +28,7 @@
                     {
                     <tr>
                         <td>@country.CountryName</td>
-                        <td>@country.CreatedDate.ToString("dd/MM/yyyy hh:mm:tt")</td>
+                        <td>@TimeZoneInfo.ConvertTimeFromUtc(@country.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                         <td>
                             <a href="@Url.Action("GetCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-primary" style="width:60px;">
                                 <i class="fa fa-eye"></i>
