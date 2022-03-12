@@ -25,7 +25,15 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult Index(int? page)
         {
-            return View(this.service.GetAll().Where(x => x.IsDeleted == false).ToList().ToPagedList(page ?? 1, 5));
+            var suppliers = this.service.GetAll().Where(x => x.IsDeleted == false).ToList();
+            ViewBag.ShowPagination = false;
+            ViewBag.Count = suppliers.Count;
+
+            if (suppliers.Count > 5)
+            {
+                ViewBag.ShowPagination = true;
+            }
+            return View(suppliers.ToPagedList(page ?? 1, 5));
         }
 
         public IActionResult AddSupplier()

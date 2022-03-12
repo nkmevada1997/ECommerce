@@ -21,7 +21,15 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult Index(int? page)
         {
-            return View(this.service.GetAll().Where(x => x.IsDeleted == false).OrderBy(x => x.CountryName).ToPagedList(page ?? 1, 5));
+            var countries = this.service.GetAll().Where(x => x.IsDeleted == false).OrderBy(x => x.CountryName).ToList();
+            ViewBag.ShowPagination = false;
+            ViewBag.Count = countries.Count;
+
+            if (countries.Count > 5)
+            {
+                ViewBag.ShowPagination = true;
+            }
+            return View(countries.ToPagedList(page ?? 1, 5));
         }
 
         public IActionResult AddCountry()

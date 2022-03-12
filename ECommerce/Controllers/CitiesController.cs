@@ -28,7 +28,15 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult Index(int? page)
         {
-            return View(this.context.Cities.Where(x => x.IsDeleted == false).Include(x => x.State).ToList().ToPagedList(page ?? 1, 5));
+            var cities = this.context.Cities.Where(x => x.IsDeleted == false).Include(x => x.State).ToList();
+
+            ViewBag.ShowPagination = false;
+            ViewBag.Count = cities.Count;
+            if (cities.Count > 5)
+            {
+                ViewBag.ShowPagination = true;
+            }
+            return View(cities.ToPagedList(page ?? 1, 5));
         }
 
         public IActionResult AddCity()

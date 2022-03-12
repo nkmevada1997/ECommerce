@@ -15,51 +15,59 @@
             </a>
         </p>
         <br />
-        <table class="table table-striped table-dark">
-            <thead">
-                <tr>
-                    <th style="width:40%">@Html.DisplayNameFor(country => country.First().CountryName)</th>
-                    <th style="width:40%">@Html.DisplayNameFor(country => country.First().CreatedDate)</th>
-                    <th>Action(s)</th>
-                </tr>
+
+        @if (@ViewBag.Count > 0)
+        {
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th style="width:40%">@Html.DisplayNameFor(country => country.First().CountryName)</th>
+                        <th style="width:40%">@Html.DisplayNameFor(country => country.First().CreatedDate)</th>
+                        <th>Action(s)</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach (var country in Model)
                     {
-                    <tr>
-                        <td>@country.CountryName</td>
-                        <td>@TimeZoneInfo.ConvertTimeFromUtc(@country.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
-                        <td>
-                            <a href="@Url.Action("GetCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-primary" style="width:60px;">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            <a href="@Url.Action("EditCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-warning" style="width:60px;">
-                                <i class="fa fa-edit" aria-hidden="true"></i>
-                            </a>
-                            <a href="@Url.Action("DeleteCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-danger" style="width:60px;">
-                                <i class="fa fa-trash-can" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@country.CountryName</td>
+                            <td>@TimeZoneInfo.ConvertTimeFromUtc(@country.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
+                            <td>
+                                <a href="@Url.Action("GetCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-primary" style="width:60px;">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="@Url.Action("EditCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-warning" style="width:60px;">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <a href="@Url.ActionLink("DeleteCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-danger" id="delete" style="width:60px;">
+                                    <i class="fa fa-trash-can" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
-        </table>
-        <br />
-        <div id='Paging' style="text-align:center;" class="text-light bg-dark paging">
-            <span>
-                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-                of @Model.PageCount
-            </span>
-        </div>
+            </table>
+        }
 
-        <br />
-        <div class="text-light bg-dark">
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        @if (@ViewBag.ShowPagination == true)
+        {
+            <br />
+            <div id='Paging' style="text-align:center;" class="text-light bg-dark paging">
+                <span>
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                    of @Model.PageCount
+                </span>
+            </div>
+
+            <br />
+            <div class="text-light bg-dark">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 
 </div>

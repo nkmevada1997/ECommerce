@@ -32,7 +32,15 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult Index(int? page)
         {
-            return View(this.service.GetAll().Where(x => x.IsDeleted == false).ToList().ToPagedList(page ?? 1, 5));
+            var customers = this.service.GetAll().Where(x => x.IsDeleted == false).ToList();
+            ViewBag.ShowPagination = false;
+            ViewBag.Count = customers.Count;    
+
+            if (customers.Count > 5)
+            {
+                ViewBag.ShowPagination = true;
+            }
+            return View(customers.ToPagedList(page ?? 1, 5));
         }
 
         public IActionResult AddCustomer()

@@ -37,7 +37,7 @@
                         <td>
                             <b>@Html.DisplayNameFor(customer=> customer.DOB)</b>
                         </td>
-                        <td>@Model.DOB.ToString("dd/MM/yyyy")</td>
+                        <td>@TimeZoneInfo.ConvertTimeFromUtc(@Model.DOB,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy")</td>
                     </tr>
 
                     <tr>
@@ -65,7 +65,7 @@
                         <td>
                             <b>@Html.DisplayNameFor(customer=> customer.CreatedDate)</b>
                         </td>
-                        <td>@Model.CreatedDate.ToString("dd/MM/yyyy hh:mm:tt")</td>
+                        <td>@TimeZoneInfo.ConvertTimeFromUtc(@Model.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                     </tr>
 
                 </table>

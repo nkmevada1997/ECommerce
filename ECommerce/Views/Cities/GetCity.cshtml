@@ -30,7 +30,7 @@
                         <td>
                             <b>@Html.DisplayNameFor(city => city.CreatedDate)</b>
                         </td>
-                        <td>@Model.CreatedDate.ToString("dd/MM/yyyyy hh:mm:tt")</td>
+                        <td>@TimeZoneInfo.ConvertTimeFromUtc(@Model.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                     </tr>
                 </table>
                 <div style="border-top:3px solid white">

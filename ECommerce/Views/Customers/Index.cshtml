@@ -19,65 +19,72 @@
             </a>
         </p>
         <br />
-        <table class="table table-striped table-dark text-center">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(customer => customer.First().FirstName)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.First().LastName)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.First().Email)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.First().DOB)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.First().Gender)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.First().Country)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.First().State)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.First().City)</th>
-                    <th>@Html.DisplayNameFor(customer => customer.First().CreatedDate)</th>
-                    <th>Action(s)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var customer in Model)
-                {
+
+        @if (@ViewBag.Count > 0)
+        {
+            <table class="table table-striped table-dark text-center">
+                <thead>
                     <tr>
-                        <td>@customer.FirstName</td>
-                        <td>@customer.LastName</td>
-                        <td>@customer.Email</td>
-                        <td>@customer.DOB.ToString("dd/MM/yyyy")</td>
-                        <td>@customer.Gender</td>
-                        <td>@customer.Country</td>
-                        <td>@customer.State</td>
-                        <td>@customer.City</td>
-                        <td>@TimeZoneInfo.ConvertTimeFromUtc(@customer.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
-                        <td>
-                            <a href="@Url.Action("GetCustomer", "Customers",new {customerId=customer.CustomerId})" class="btn btn-primary" style="width:60px;">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            <a href="@Url.Action("EditCustomer", "Customers",new {customerId=customer.CustomerId})" class="btn btn-warning" style="width:60px;">
-                                <i class="fa fa-edit" aria-hidden="true"></i>
-                            </a>
-                            <a href="@Url.Action("DeleteCustomer", "Customers",new {customerId=customer.CustomerId})" class="btn btn-danger" style="width:60px;">
-                                <i class="fa fa-trash-can" aria-hidden="true"></i>
-                            </a>
-                        </td>
+                        <th>@Html.DisplayNameFor(customer => customer.First().FirstName)</th>
+                        <th>@Html.DisplayNameFor(customer => customer.First().LastName)</th>
+                        <th>@Html.DisplayNameFor(customer => customer.First().Email)</th>
+                        <th>@Html.DisplayNameFor(customer => customer.First().DOB)</th>
+                        <th>@Html.DisplayNameFor(customer => customer.First().Gender)</th>
+                        <th>@Html.DisplayNameFor(customer => customer.First().Country)</th>
+                        <th>@Html.DisplayNameFor(customer => customer.First().State)</th>
+                        <th>@Html.DisplayNameFor(customer => customer.First().City)</th>
+                        <th>@Html.DisplayNameFor(customer => customer.First().CreatedDate)</th>
+                        <th>Action(s)</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model)
+                    {
+                        <tr>
+                            <td>@customer.FirstName</td>
+                            <td>@customer.LastName</td>
+                            <td>@customer.Email</td>
+                            <td>@customer.DOB.ToString("dd/MM/yyyy")</td>
+                            <td>@customer.Gender</td>
+                            <td>@customer.Country</td>
+                            <td>@customer.State</td>
+                            <td>@customer.City</td>
+                            <td>@TimeZoneInfo.ConvertTimeFromUtc(@customer.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
+                            <td>
+                                <a href="@Url.Action("GetCustomer", "Customers",new {customerId=customer.CustomerId})" class="btn btn-primary" style="width:60px;">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="@Url.Action("EditCustomer", "Customers",new {customerId=customer.CustomerId})" class="btn btn-warning" style="width:60px;">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <a href="@Url.Action("DeleteCustomer", "Customers",new {customerId=customer.CustomerId})" class="btn btn-danger" style="width:60px;">
+                                    <i class="fa fa-trash-can" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
 
-        <br />
-        <div id='Paging' style="text-align:center;" class="text-light bg-dark paging">
-            <span>
-                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-                of @Model.PageCount
-            </span>
-        </div>
+        @if (@ViewBag.ShowPagination == true)
+        {
+            <br />
+            <div id='Paging' style="text-align:center;" class="text-light bg-dark paging">
+                <span>
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                    of @Model.PageCount
+                </span>
+            </div>
 
-        <br />
-        <div class="text-light bg-dark">
-            <div class="row">
-                <div class="col-md-12">
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            <br />
+            <div class="text-light bg-dark">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 </div>
