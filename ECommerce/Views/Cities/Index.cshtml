@@ -31,7 +31,7 @@
                     <tr>
                         <td>@city.CityName</td>
                         <td>@city.State?.StateName</td>
-                        <td>@city.CreatedDate.ToString("dd/MM/yyyy hh:mm:tt")</td>
+                        <td>@TimeZoneInfo.ConvertTimeFromUtc(@city.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                         <td>
                             <a href="@Url.Action("GetCity", "Cities",new {cityId=city.CityId})" class="btn btn-primary" style="width:60px;">
                                 <i class="fa fa-eye"></i>
