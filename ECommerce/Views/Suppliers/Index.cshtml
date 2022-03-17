@@ -6,79 +6,96 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="row justify-content-center">
-    <div>
-        <h3 class="text-light">
-            <i class="fa-solid fa-truck"></i>
-            <span>Suppliers</span>
-        </h3>
-        <p>
-            <a href="@Url.Action("AddSupplier", "Suppliers")" class="btn btn-primary mt-3">
-                <i class="fa fa-plus"></i>
-                <span>Add Supplier</span>
-            </a>
-        </p>
-        <br />
+<div>
+    <partial name="../Shared/_Header.cshtml" />
+</div>
 
-        @if (@ViewBag.Count > 0)
-        {
-            <table class="table table-striped table-dark text-center">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(supplier => supplier.First().SupplierName)</th>
-                        <th>@Html.DisplayNameFor(supplier => supplier.First().Email)</th>
-                        <th>@Html.DisplayNameFor(supplier => supplier.First().Country)</th>
-                        <th>@Html.DisplayNameFor(supplier => supplier.First().State)</th>
-                        <th>@Html.DisplayNameFor(supplier => supplier.First().City)</th>
-                        <th>@Html.DisplayNameFor(supplier => supplier.First().CreatedDate)</th>
-                        <th>Action(s)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var supplier in Model)
-                    {
-                        <tr>
-                            <td>@supplier.SupplierName</td>
-                            <td>@supplier.Email</td>
-                            <td>@supplier.Country</td>
-                            <td>@supplier.State</td>
-                            <td>@supplier.City</td>
-                            <td>@TimeZoneInfo.ConvertTimeFromUtc(@supplier.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
-                            <td>
-                                <a href="@Url.Action("GetSupplier", "Suppliers",new {supplierId=supplier.SupplierId})" class="btn btn-primary" style="width:60px;">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <a href="@Url.Action("EditSupplier", "Suppliers",new {supplierId=supplier.SupplierId})" class="btn btn-warning" style="width:60px;">
-                                    <i class="fa fa-edit" aria-hidden="true"></i>
-                                </a>
-                                <a href="@Url.Action("DeleteSupplier", "Suppliers",new {supplierId=supplier.SupplierId})" class="btn btn-danger" style="width:60px;">
-                                    <i class="fa fa-trash-can" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-
-        @if (@ViewBag.ShowPagination == true)
-        {
+<div class="container">
+    <div class="row justify-content-center">
+        <div>
+            <h3 class="text-light">
+                <i class="fa-solid fa-truck"></i>
+                <span>Suppliers</span>
+            </h3>
+            <p>
+                <a href="@Url.Action("AddSupplier", "Suppliers")" class="btn btn-primary mt-3">
+                    <i class="fa fa-plus"></i>
+                    <span>Add Supplier</span>
+                </a>
+            </p>
             <br />
-            <div id='Paging' style="text-align:center;" class="text-light bg-dark paging">
-                <span>
-                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-                    of @Model.PageCount
-                </span>
-            </div>
 
-            <br />
-            <div class="text-light bg-dark">
-                <div class="row">
-                    <div class="col-md-12">
-                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            @if (@ViewBag.Count == 0)
+            {
+                <div style="text-align:center;" class="bg-dark paging">
+                    <span class="text-danger">
+                        There are no Records!
+                    </span>
+                </div>
+            }
+
+            @if (@ViewBag.Count > 0)
+            {
+                <div style="overflow-x:auto;" class="table-responsive">
+                    <table class="table table-striped table-dark text-center">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(supplier => supplier.First().SupplierName)</th>
+                                <th>@Html.DisplayNameFor(supplier => supplier.First().Email)</th>
+                                <th>@Html.DisplayNameFor(supplier => supplier.First().Country)</th>
+                                <th>@Html.DisplayNameFor(supplier => supplier.First().State)</th>
+                                <th>@Html.DisplayNameFor(supplier => supplier.First().City)</th>
+                                <th>@Html.DisplayNameFor(supplier => supplier.First().CreatedDate)</th>
+                                <th>Action(s)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var supplier in Model)
+                            {
+                                <tr>
+                                    <td>@supplier.SupplierName</td>
+                                    <td>@supplier.Email</td>
+                                    <td>@supplier.Country</td>
+                                    <td>@supplier.State</td>
+                                    <td>@supplier.City</td>
+                                    <td>@TimeZoneInfo.ConvertTimeFromUtc(@supplier.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
+                                    <td>
+                                        <a href="@Url.Action("GetSupplier", "Suppliers",new {supplierId=supplier.SupplierId})" class="btn btn-primary">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("EditSupplier", "Suppliers",new {supplierId=supplier.SupplierId})" class="btn btn-warning">
+                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="@Url.Action("DeleteSupplier", "Suppliers",new {supplierId=supplier.SupplierId})" class="btn btn-danger">
+                                            <i class="fa fa-trash-can" aria-hidden="true"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            @if (@ViewBag.ShowPagination == true)
+            {
+                <br />
+                <div id='Paging' style="text-align:center;" class="text-light bg-dark paging">
+                    <span>
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                        of @Model.PageCount
+                    </span>
+                </div>
+
+                <br />
+                <div class="text-light bg-dark">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Models", "Ecommer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Common", "Ecommerce.Common\Ecommerce.Common.csproj", "{096F647F-E79B-4869-A2ED-100BAB35C980}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Helper", "Ecommerce.Helper\Ecommerce.Helper.csproj", "{0BBE64E3-A8DC-442A-8B02-1BD85CB6DDA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Helper", "Ecommerce.Helper\Ecommerce.Helper.csproj", "{0BBE64E3-A8DC-442A-8B02-1BD85CB6DDA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

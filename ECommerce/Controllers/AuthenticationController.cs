@@ -17,6 +17,10 @@ namespace ECommerce.Controllers
 
         public IActionResult Login()
         {
+            if (HttpContext.Session.GetInt32("UserId") != null)
+            {
+                return RedirectToAction("Index", "Customers");
+            }
             return View();
         }
 

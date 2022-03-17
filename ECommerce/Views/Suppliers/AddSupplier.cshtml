@@ -4,102 +4,115 @@
     ViewData["Title"] = "AddSupplier";
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <div class="card" style="margin:auto;">
-            <div class="card-header bg-dark text-white text-center bg-dark">
-                <h5 class="mt-1">Add Supplier</h5>
-            </div>
-            <div class="card-body bg-dark text-light" style="border-top:3px solid white" ">
-                @using (Html.BeginForm())
-                {
-                @Html.AntiForgeryToken()
+<div>
+    <partial name="../Shared/_Header.cshtml" />
+</div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            @Html.LabelFor(supplier => supplier.SupplierName)
-                            @Html.TextBoxFor(supplier => supplier.SupplierName, new { @class = "form-control" })
-                            <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.SupplierName)</span>
-                            <br />
-                        </div>
-                    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card" style="margin:auto;">
+                <div class="card-header bg-dark text-white text-center bg-dark">
+                    <h5 class="mt-1">Add Supplier</h5>
                 </div>
+                <div class="card-body bg-dark text-light" style="border-top:3px solid white" ">
+                    @using (Html.BeginForm())
+                    {
+                    @Html.AntiForgeryToken()
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            @Html.LabelFor(supplier => supplier.Email)
-                            @Html.TextBoxFor(supplier => supplier.Email, new { @class = "form-control" })
-                            <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.Email)</span>
-                            <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(supplier => supplier.SupplierName)
+                                @Html.TextBoxFor(supplier => supplier.SupplierName, new { @class = "form-control" })
+                                <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.SupplierName)</span>
+                                <br />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(supplier => supplier.Email)
+                                @Html.TextBoxFor(supplier => supplier.Email, new { @class = "form-control" })
+                                <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.Email)</span>
+                                <br />
+                            </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(customer=> customer.Password)
+                                @Html.TextBoxFor(customer=> customer.Password, new { @class = "form-control",type = "password" })
+                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Password)</span>
+                                <br />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(customer=> customer.ConfirmPassword)
+                                @Html.TextBoxFor(customer=> customer.ConfirmPassword, new { @class = "form-control",  type = "password"})
+                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.ConfirmPassword)</span>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(supplier => supplier.Country)
+                                @Html.TextBoxFor(supplier => supplier.Country, new { @class = "form-control" })
+                                <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.Country)</span>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(supplier => supplier.State)
+                                @Html.TextBoxFor(supplier => supplier.State, new { @class = "form-control" })
+                                <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.State)</span>
+                                <br />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(supplier => supplier.City)
+                                @Html.TextBoxFor(supplier => supplier.City, new { @class = "form-control" })
+                                <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.City)</span>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="border-top:3px solid white">
+                        <div class="mt-3 text-center">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-primary button">
+                                        <i class="fa fa-plus"></i>
+                                        <span>Add Supplier</span>
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="@Url.Action("Index", "Suppliers")" class="btn btn-secondary button">
+                                        <i class="fa fa-list"></i>
+                                        <span>Suppliers</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
                 </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelFor(customer=> customer.Password)
-                            @Html.TextBoxFor(customer=> customer.Password, new { @class = "form-control",type = "password" })
-                            <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Password)</span>
-                            <br />
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelFor(customer=> customer.ConfirmPassword)
-                            @Html.TextBoxFor(customer=> customer.ConfirmPassword, new { @class = "form-control",  type = "password"})
-                            <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.ConfirmPassword)</span>
-                            <br />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            @Html.LabelFor(supplier => supplier.Country)
-                            @Html.TextBoxFor(supplier => supplier.Country, new { @class = "form-control" })
-                            <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.Country)</span>
-                            <br />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelFor(supplier => supplier.State)
-                            @Html.TextBoxFor(supplier => supplier.State, new { @class = "form-control" })
-                            <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.State)</span>
-                            <br />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelFor(supplier => supplier.City)
-                            @Html.TextBoxFor(supplier => supplier.City, new { @class = "form-control" })
-                            <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.City)</span>
-                            <br />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group" style="border-top:3px solid white">
-                    <div class="mt-3 text-center">
-                        <button type="submit" class="btn btn-primary" style="width:180px">
-                            <i class="fa fa-plus"></i>
-                            <span>Add Supplier</span>
-                        </button> |
-                        <a href="@Url.Action("Index", "Suppliers")" class="btn btn-secondary">
-                            <i class="fa fa-list"></i>
-                            <span>Suppliers</span>
-                        </a>
-                    </div>
-                </div>
-                }
             </div>
         </div>
     </div>
