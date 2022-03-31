@@ -41,11 +41,12 @@ namespace ECommerce.Controllers
 
         public IActionResult AddCity()
         {
-            IList<StatesDropdown> statesDropdownList = new List<StatesDropdown>();
             var states = this.stateService.GetAll().Where(x => x.IsDeleted == false).ToList();
+            ViewBag.StateItems = ViewBag.CoutryItems;
 
             if (states != null && states.Count > 0)
             {
+                IList<StatesDropdown> statesDropdownList = new List<StatesDropdown>();
                 foreach (var state in states)
                 {
                     statesDropdownList.Add(new StatesDropdown
@@ -54,7 +55,11 @@ namespace ECommerce.Controllers
                         StateName = state.StateName,
                     });
                 }
-                ViewBag.StateItems = statesDropdownList.Count > 0 ? statesDropdownList : new List<StatesDropdown>();
+
+                if (statesDropdownList.Count > 0)
+                {
+                    ViewBag.StateItems = statesDropdownList;
+                }
             }
             return View();
         }
@@ -100,6 +105,8 @@ namespace ECommerce.Controllers
         public IActionResult EditCity(Guid cityId)
         {
             var city = this.service.Get(cityId);
+            ViewBag.StateItems = new List<StatesDropdown>();
+
             if (city == null)
             {
                 return NotFound();
@@ -126,7 +133,11 @@ namespace ECommerce.Controllers
                             StateName = state.StateName,
                         });
                     }
-                    ViewBag.StateItems = statesDropdownList;
+
+                    if (statesDropdownList.Count > 0)
+                    {
+                        ViewBag.StateItems = statesDropdownList;
+                    }
                 }
                 return View(model);
             }

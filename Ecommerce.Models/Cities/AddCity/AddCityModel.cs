@@ -11,6 +11,7 @@ namespace Ecommerce.Models.Cities.AddCity
         public string CityName { get; set; } = string.Empty;
 
         [Required]
+        [Display(Name ="State Name")]
         public Guid StateId { get; set; }
     }
 }

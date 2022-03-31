@@ -14,14 +14,16 @@ namespace ECommerce.Controllers
     [LoggedIn]
     public class CustomersController : Controller
     {
+        private readonly IWebHostEnvironment env;
         private readonly IService<Customer> service;
         private readonly IService<User> userService;
         private readonly IService<Country> countryService;
         private readonly IService<State> stateService;
         private readonly IService<City> cityService;
 
-        public CustomersController(IService<Customer> service, IService<User> userService, IService<Country> countryService, IService<State> stateService, IService<City> cityService)
+        public CustomersController(IWebHostEnvironment env, IService<Customer> service, IService<User> userService, IService<Country> countryService, IService<State> stateService, IService<City> cityService)
         {
+            this.env = env;
             this.service = service;
             this.userService = userService;
             this.countryService = countryService;
@@ -34,7 +36,7 @@ namespace ECommerce.Controllers
         {
             var customers = this.service.GetAll().Where(x => x.IsDeleted == false).ToList();
             ViewBag.ShowPagination = false;
-            ViewBag.Count = customers.Count;    
+            ViewBag.Count = customers.Count;
 
             if (customers.Count > 5)
             {
@@ -81,6 +83,7 @@ namespace ECommerce.Controllers
                     DOB = model.DOB,
                     Gender = model.Gender,
                     Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
                     Password = EncodeBase.EncodeBase64(model.Password),
                     Country = model.Country,
                     State = model.State,
@@ -208,5 +211,6 @@ namespace ECommerce.Controllers
             }
             return RedirectToAction("Index", "Customers");
         }
+
     }
 }

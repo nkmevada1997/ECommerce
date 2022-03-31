@@ -4,6 +4,7 @@ using Ecommerce.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220326063546_Ecommerce_Customer_AddMobile")]
+    partial class Ecommerce_Customer_AddMobile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,10 +100,6 @@ namespace Ecommerce.DAL.Migrations
                     b.Property<Guid>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AvatarImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -282,9 +280,9 @@ namespace Ecommerce.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("02148f9c-280e-4104-aad2-ec48d5c5fc1b"),
+                            UserId = new Guid("903e0cfd-b702-4d02-bc46-4916428a2f7f"),
                             CanLogin = true,
-                            CreatedDate = new DateTime(2022, 3, 26, 7, 40, 56, 672, DateTimeKind.Utc).AddTicks(9299),
+                            CreatedDate = new DateTime(2022, 3, 26, 6, 35, 46, 483, DateTimeKind.Utc).AddTicks(3414),
                             Email = "admin@gmail.com",
                             IsDeleted = false,
                             Password = "QWRtaW5AMTIz",

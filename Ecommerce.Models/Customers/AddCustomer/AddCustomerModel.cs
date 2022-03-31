@@ -5,6 +5,9 @@ namespace Ecommerce.Models.Customers.AddCustomer
 {
     public class AddCustomerModel
     {
+        [Required(ErrorMessage ="Profile Picture Is Required")]
+        public string AvatarImage { get; set; } = string.Empty;
+
         [Required(ErrorMessage = "First Name Is Required.")]
         [MaxLength(20)]
         [Display(Name = "First Name")]
@@ -23,6 +26,13 @@ namespace Ecommerce.Models.Customers.AddCustomer
         [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}", ErrorMessage = "Please enter correct email")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [MaxLength(20)]
+        [Display(Name = "Mobile Number")]
+        [RegularExpression(@"^([0-9]{10})+$", ErrorMessage = "Please Enter Only Numbers")]
+        public string PhoneNumber { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Password Is Required.")]
         [MinLength(8, ErrorMessage = "Password Length Must Be 8 to 15 Characters.")]

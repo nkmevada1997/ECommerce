@@ -13,6 +13,7 @@ namespace Ecommerce.Models.States.EditState
         public string StateName { get; set; } = string.Empty;
 
         [Required]
+        [Display(Name = "Country Name")]
         public Guid CountryId { get; set; }
     }
 }

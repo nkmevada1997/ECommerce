@@ -12,6 +12,7 @@ namespace Ecommerce.Models.Cities.EditCity
         public string CityName { get; set; } = string.Empty;
 
         [Required]
+        [Display(Name = "State Name")]
         public Guid StateId { get; set; }
     }
 }

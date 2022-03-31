@@ -26,36 +26,28 @@ namespace ECommerce.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? page, Guid? countryId)
         {
             var states = this.context.States.Where(x => x.IsDeleted == false).Include(x => x.Country).ToList();
+
             ViewBag.ShowPagination = false;
             ViewBag.Count = states.Count;
 
             if (states.Count > 5)
             {
                 ViewBag.ShowPagination = true;
+
+                if (countryId.HasValue)
+                {
+                    states = states.Where(x => x.CountryId == countryId.Value).ToList();
+                }
             }
             return View(states.ToPagedList(page ?? 1, 5));
         }
 
         public IActionResult AddState()
         {
-            IList<CountriesDropdown> countriesDropdownList = new List<CountriesDropdown>();
-            var countries = this.countryService.GetAll().Where(x => x.IsDeleted == false).ToList();
-
-            if (countries != null && countries.Count > 0)
-            {
-                foreach (var country in countries)
-                {
-                    countriesDropdownList.Add(new CountriesDropdown
-                    {
-                        CountryId = country.CountryId,
-                        CountryName = country.CountryName,
-                    });
-                }
-                ViewBag.CoutryItems = countriesDropdownList;
-            }
+            ViewBag.CoutryItems = CountriesDropdownList();
             return View();
         }
 
@@ -111,22 +103,7 @@ namespace ECommerce.Controllers
                     CountryId = state.CountryId,
                     StateName = state.StateName,
                 };
-
-                IList<CountriesDropdown> countriesDropdownList = new List<CountriesDropdown>();
-                var countries = this.countryService.GetAll().Where(x => x.IsDeleted == false).ToList();
-
-                if (countries != null && countries.Count > 0)
-                {
-                    foreach (var country in countries)
-                    {
-                        countriesDropdownList.Add(new CountriesDropdown
-                        {
-                            CountryId = country.CountryId,
-                            CountryName = country.CountryName,
-                        });
-                    }
-                    ViewBag.CoutryItems = countriesDropdownList;
-                }
+                ViewBag.CoutryItems = CountriesDropdownList();
                 return View(model);
             }
         }
@@ -174,6 +151,26 @@ namespace ECommerce.Controllers
                 this.service.Update(state);
             }
             return RedirectToAction("Index", "States");
+        }
+
+        private IList<CountriesDropdown> CountriesDropdownList()
+        {
+            IList<CountriesDropdown> countriesDropdownList = new List<CountriesDropdown>();
+            var countries = this.countryService.GetAll().Where(x => x.IsDeleted == false).ToList();
+
+            if (countries != null && countries.Count > 0)
+            {
+                foreach (var country in countries)
+                {
+                    countriesDropdownList.Add(new CountriesDropdown
+                    {
+                        CountryId = country.CountryId,
+                        CountryName = country.CountryName,
+                    });
+                }
+
+            }
+            return countriesDropdownList;
         }
     }
 }
