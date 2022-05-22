@@ -59,7 +59,7 @@ namespace ECommerce.Controllers
             {
                 var state = new State
                 {
-                    StateId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     StateName = model.StateName,
                     CountryId = model.CountryId,
                     CreatedDate = DateTime.UtcNow,
@@ -99,7 +99,7 @@ namespace ECommerce.Controllers
             {
                 var model = new EditStateModel
                 {
-                    StateId = state.StateId,
+                    StateId = state.Id,
                     CountryId = state.CountryId,
                     StateName = state.StateName,
                 };
@@ -164,7 +164,7 @@ namespace ECommerce.Controllers
                 {
                     countriesDropdownList.Add(new CountriesDropdown
                     {
-                        CountryId = country.CountryId,
+                        CountryId = country.Id,
                         CountryName = country.CountryName,
                     });
                 }

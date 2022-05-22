@@ -1,15 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Ecommerce.Common.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ecommerce.DAL.Models
 {
     [Table("Suppliers", Schema = "dbo")]
-    public class Supplier
+    public class Supplier : BaseModel
     {
-        [Key]
-        [Required]
-        public Guid SupplierId { get; set; }
-
         [Required]
         [MaxLength((20))]
         [DataType(DataType.Text)]
@@ -45,10 +42,5 @@ namespace Ecommerce.DAL.Models
         [DataType(DataType.Text)]
         [Display (Name ="City")]
         public string City { get; set; } = string.Empty;
-
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-
-        public bool IsDeleted { get; set; } = false;
-
     }
 }

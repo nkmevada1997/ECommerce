@@ -49,7 +49,7 @@ namespace ECommerce.Controllers
             {
                 var supplier = new Supplier
                 {
-                    SupplierId = Guid.NewGuid(),
+                    Id= Guid.NewGuid(),
                     SupplierName = model.SupplierName,
                     Email = model.Email,
                     Password = EncodeBase.EncodeBase64(model.Password),
@@ -63,8 +63,8 @@ namespace ECommerce.Controllers
 
                 var user = new User
                 {
-                    UserId = Guid.NewGuid(),
-                    SupplierId = supplier.SupplierId,
+                    Id = Guid.NewGuid(),
+                    SupplierId = supplier.Id,
                     Email = model.Email,
                     Password = EncodeBase.EncodeBase64(model.Password),
                     UserName = model.SupplierName,
@@ -103,7 +103,7 @@ namespace ECommerce.Controllers
             {
                 var model = new EditSupplierModel
                 {
-                    SupplierId = supplier.SupplierId,
+                    SupplierId = supplier.Id,
                     SupplierName = supplier.SupplierName,
                     Country = supplier.Country,
                     State = supplier.State,
@@ -161,7 +161,7 @@ namespace ECommerce.Controllers
                 var user = users.SingleOrDefault(x => x.SupplierId == supplierId);
                 if (user != null)
                 {
-                    this.userService.Delete(user.UserId);
+                    this.userService.Delete(user.Id);
                 }
             }
             return RedirectToAction("Index", "Suppliers");

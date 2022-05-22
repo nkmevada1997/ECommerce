@@ -45,7 +45,7 @@ namespace ECommerce.Controllers
             {
                 var country = new Country
                 {
-                    CountryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     CountryName = model.CountryName,
                     CreatedDate = DateTime.UtcNow,
                     IsDeleted = false,
@@ -82,7 +82,7 @@ namespace ECommerce.Controllers
             {
                 var model = new EditCountryModel
                 {
-                    CountryId = country.CountryId,
+                    CountryId = country.Id,
                     CountryName = country.CountryName,
                 };
                 return View(model);

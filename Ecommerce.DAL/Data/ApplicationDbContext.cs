@@ -30,7 +30,7 @@ namespace Ecommerce.DAL.Data
         {
             modelBuilder.Entity<User>().HasData(new User
             {
-                UserId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 Email = "admin@gmail.com",
                 Password = EncodeBase.EncodeBase64("Admin@123"),
                 UserName = "Admin",

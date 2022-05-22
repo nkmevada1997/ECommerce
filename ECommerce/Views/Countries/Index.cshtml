@@ -34,13 +34,13 @@
                                 <td>@country.CountryName</td>
                                 <td>@TimeZoneInfo.ConvertTimeFromUtc(@country.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                                 <td>
-                                    <a href="@Url.Action("GetCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-primary">
+                                    <a href="@Url.Action("GetCountry", "Countries",new {countryId=country.Id})" class="btn btn-primary">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="@Url.Action("EditCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-warning">
+                                    <a href="@Url.Action("EditCountry", "Countries",new {countryId=country.Id})" class="btn btn-warning">
                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                     </a>
-                                    <a href="@Url.ActionLink("DeleteCountry", "Countries",new {countryId=country.CountryId})" class="btn btn-danger" id="delete">
+                                    <a href="@Url.ActionLink("DeleteCountry", "Countries",new {countryId=country.Id})" class="btn btn-danger" id="delete">
                                         <i class="fa fa-trash-can" aria-hidden="true"></i>
                                     </a>
                                 </td>

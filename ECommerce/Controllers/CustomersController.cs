@@ -58,7 +58,7 @@ namespace ECommerce.Controllers
                 {
                     countriesDropdownList.Add(new CountriesDropdown
                     {
-                        CountryId = country.CountryId,
+                        CountryId = country.Id,
                         CountryName = country.CountryName,
                     });
                 }
@@ -77,7 +77,7 @@ namespace ECommerce.Controllers
             {
                 var customer = new Customer
                 {
-                    CustomerId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     DOB = model.DOB,
@@ -95,8 +95,8 @@ namespace ECommerce.Controllers
 
                 var user = new User
                 {
-                    UserId = Guid.NewGuid(),
-                    CustomerId = customer.CustomerId,
+                    Id = Guid.NewGuid(),
+                    CustomerId = customer.Id,
                     Email = model.Email,
                     Password = EncodeBase.EncodeBase64(model.Password),
                     UserName = model.FirstName + " " + model.LastName,
@@ -206,7 +206,7 @@ namespace ECommerce.Controllers
                 var user = users.SingleOrDefault(x => x.CustomerId == customerId);
                 if (user != null)
                 {
-                    this.userService.Delete(user.UserId);
+                    this.userService.Delete(user.Id);
                 }
             }
             return RedirectToAction("Index", "Customers");

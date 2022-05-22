@@ -47,7 +47,7 @@ namespace ECommerce.Controllers
             {
                 var category = new Category
                 {
-                    CategoryId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     CategoryName = model.CategoryName,
                     CreatedDate = DateTime.UtcNow,
                     IsDeleted = false,
@@ -85,7 +85,7 @@ namespace ECommerce.Controllers
             {
                 var model = new EditCategoryModel
                 {
-                    CategoryId = category.CategoryId,
+                    CategoryId = category.Id,
                     CategoryName = category.CategoryName,
                 };
 

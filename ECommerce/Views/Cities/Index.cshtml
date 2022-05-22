@@ -37,13 +37,13 @@
                                         <td>@city.State?.StateName</td>
                                         <td>@TimeZoneInfo.ConvertTimeFromUtc(@city.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                                         <td>
-                                            <a href="@Url.Action("GetCity", "Cities",new {cityId=city.CityId})" class="btn btn-primary">
+                                            <a href="@Url.Action("GetCity", "Cities",new {cityId=city.Id})" class="btn btn-primary">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="@Url.Action("EditCity", "Cities",new {cityId=city.CityId})" class="btn btn-warning">
+                                            <a href="@Url.Action("EditCity", "Cities",new {cityId=city.Id})" class="btn btn-warning">
                                                 <i class="fa fa-edit" aria-hidden="true"></i>
                                             </a>
-                                            <a href="@Url.Action("DeleteCity", "Cities",new {cityId=city.CityId})" class="btn btn-danger">
+                                            <a href="@Url.Action("DeleteCity", "Cities",new {cityId=city.Id})" class="btn btn-danger">
                                                 <i class="fa fa-trash-can" aria-hidden="true"></i>
                                             </a>
                                         </td>

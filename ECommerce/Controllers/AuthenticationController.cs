@@ -37,7 +37,7 @@ namespace ECommerce.Controllers
 
                     if (user != null)
                     {
-                        HttpContext.Session.SetString("UserId", user.UserId.ToString());
+                        HttpContext.Session.SetString("UserId", user.Id.ToString());
                         HttpContext.Session.SetString("UserEmail", user.Email);
                         HttpContext.Session.SetString("UserName", user.UserName);
                         HttpContext.Session.SetInt32("UserType", (int)user.UserType);

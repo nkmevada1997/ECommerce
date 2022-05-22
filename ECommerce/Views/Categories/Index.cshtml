@@ -35,13 +35,13 @@
                                 <td>@category.CategoryName</td>
                                 <td>@TimeZoneInfo.ConvertTimeFromUtc(@category.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                                 <td>
-                                    <a href="@Url.Action("GetCategory", "Categories",new {categoryId=category.CategoryId})" class="btn btn-primary">
+                                    <a href="@Url.Action("GetCategory", "Categories",new {categoryId=category.Id})" class="btn btn-primary">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="@Url.Action("EditCategory", "Categories",new {categoryId=category.CategoryId})" class="btn btn-warning">
+                                    <a href="@Url.Action("EditCategory", "Categories",new {categoryId=category.Id})" class="btn btn-warning">
                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                     </a>
-                                    <a href="@Url.Action("DeleteCategory", "Categories",new {categoryId=category.CategoryId})" class="btn btn-danger">
+                                    <a href="@Url.Action("DeleteCategory", "Categories",new {categoryId=category.Id})" class="btn btn-danger">
                                         <i class="fa fa-trash-can" aria-hidden="true"></i>
                                     </a>
                                 </td>

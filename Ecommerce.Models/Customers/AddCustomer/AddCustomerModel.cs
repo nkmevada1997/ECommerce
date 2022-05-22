@@ -5,9 +5,6 @@ namespace Ecommerce.Models.Customers.AddCustomer
 {
     public class AddCustomerModel
     {
-        [Required(ErrorMessage ="Profile Picture Is Required")]
-        public string AvatarImage { get; set; } = string.Empty;
-
         [Required(ErrorMessage = "First Name Is Required.")]
         [MaxLength(20)]
         [Display(Name = "First Name")]
