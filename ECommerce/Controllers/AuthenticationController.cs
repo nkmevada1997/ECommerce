@@ -17,11 +17,30 @@ namespace ECommerce.Controllers
 
         public IActionResult Login()
         {
+            LoginModel model = new LoginModel();
+            string email, password;
+            bool remember = false;
+
+
             if (HttpContext.Session.GetInt32("UserId") != null)
             {
                 return RedirectToAction("Index", "Customers");
             }
-            return View();
+
+            HttpContext.Request.Cookies.TryGetValue("UserEmail", out email);
+            HttpContext.Request.Cookies.TryGetValue("UserPassword", out password);
+
+            model.Email = email;
+            model.Password = password;
+
+            if (HttpContext.Request.Cookies["RememberMe"] != null)
+            {
+                bool.TryParse(HttpContext.Request.Cookies["RememberMe"], out remember);
+                model.RememberMe = remember;
+            }
+
+
+            return View(model);
         }
 
         [HttpPost]
@@ -41,6 +60,22 @@ namespace ECommerce.Controllers
                         HttpContext.Session.SetString("UserEmail", user.Email);
                         HttpContext.Session.SetString("UserName", user.UserName);
                         HttpContext.Session.SetInt32("UserType", (int)user.UserType);
+
+                        if (model.RememberMe)
+                        {
+                            CookieOptions options = new CookieOptions();
+                            options.Expires = DateTime.Now.AddDays(365);
+                            HttpContext.Response.Cookies.Append("UserEmail", model.Email.ToString(), options);
+                            HttpContext.Response.Cookies.Append("UserPassword", model.Password.ToString(), options);
+                            HttpContext.Response.Cookies.Append("RememberMe", model.RememberMe.ToString(), options);
+                        }
+                        else
+                        {
+                            HttpContext.Response.Cookies.Delete("UserEmail");
+                            HttpContext.Response.Cookies.Delete("UserPassword");
+                            HttpContext.Response.Cookies.Delete("RememberMe");
+                        }
+
 
                         return RedirectToAction("Index", "Customers");
                     }
