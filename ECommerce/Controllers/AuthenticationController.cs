@@ -17,6 +17,10 @@ namespace ECommerce.Controllers
 
         public IActionResult Login()
         {
+            if (HttpContext.Session.GetInt32("UserId") != null)
+            {
+                return RedirectToAction("Index", "Customers");
+            }
             return View();
         }
 
@@ -33,7 +37,7 @@ namespace ECommerce.Controllers
 
                     if (user != null)
                     {
-                        HttpContext.Session.SetString("UserId", user.UserId.ToString());
+                        HttpContext.Session.SetString("UserId", user.Id.ToString());
                         HttpContext.Session.SetString("UserEmail", user.Email);
                         HttpContext.Session.SetString("UserName", user.UserName);
                         HttpContext.Session.SetInt32("UserType", (int)user.UserType);

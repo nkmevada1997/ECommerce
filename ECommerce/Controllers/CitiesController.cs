@@ -28,25 +28,38 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult Index(int? page)
         {
-            return View(this.context.Cities.Where(x => x.IsDeleted == false).Include(x => x.State).ToList().ToPagedList(page ?? 1, 5));
+            var cities = this.context.Cities.Where(x => x.IsDeleted == false).Include(x => x.State).ToList();
+
+            ViewBag.ShowPagination = false;
+            ViewBag.Count = cities.Count;
+            if (cities.Count > 5)
+            {
+                ViewBag.ShowPagination = true;
+            }
+            return View(cities.ToPagedList(page ?? 1, 5));
         }
 
         public IActionResult AddCity()
         {
-            IList<StatesDropdown> statesDropdownList = new List<StatesDropdown>();
             var states = this.stateService.GetAll().Where(x => x.IsDeleted == false).ToList();
+            ViewBag.StateItems = ViewBag.CoutryItems;
 
             if (states != null && states.Count > 0)
             {
+                IList<StatesDropdown> statesDropdownList = new List<StatesDropdown>();
                 foreach (var state in states)
                 {
                     statesDropdownList.Add(new StatesDropdown
                     {
-                        StateId = state.StateId,
+                        StateId = state.Id,
                         StateName = state.StateName,
                     });
                 }
-                ViewBag.StateItems = statesDropdownList.Count > 0 ? statesDropdownList : new List<StatesDropdown>();
+
+                if (statesDropdownList.Count > 0)
+                {
+                    ViewBag.StateItems = statesDropdownList;
+                }
             }
             return View();
         }
@@ -59,7 +72,7 @@ namespace ECommerce.Controllers
             {
                 var city = new City
                 {
-                    CityId = Guid.NewGuid(),
+                    Id= Guid.NewGuid(),
                     CityName = model.CityName,
                     StateId = model.StateId,
                     CreatedDate = DateTime.UtcNow,
@@ -92,6 +105,8 @@ namespace ECommerce.Controllers
         public IActionResult EditCity(Guid cityId)
         {
             var city = this.service.Get(cityId);
+            ViewBag.StateItems = new List<StatesDropdown>();
+
             if (city == null)
             {
                 return NotFound();
@@ -114,11 +129,15 @@ namespace ECommerce.Controllers
                     {
                         statesDropdownList.Add(new StatesDropdown
                         {
-                            StateId = state.StateId,
+                            StateId = state.Id,
                             StateName = state.StateName,
                         });
                     }
-                    ViewBag.StateItems = statesDropdownList;
+
+                    if (statesDropdownList.Count > 0)
+                    {
+                        ViewBag.StateItems = statesDropdownList;
+                    }
                 }
                 return View(model);
             }

@@ -5,7 +5,7 @@
 }
 
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-6">
         <div class="card" style="margin:auto;">
             <div class="card-header bg-dark text-white text-center bg-dark" style="height:50px">
                 <h5 class="mt-1">Supplier Details</h5>
@@ -51,24 +51,28 @@
                         <td>
                             <b>@Html.DisplayNameFor(supplier => supplier.CreatedDate)</b>
                         </td>
-                        <td>@Model.CreatedDate.ToString("dd/MM/yyyyy hh:mm:tt")</td>
+                        <td>@TimeZoneInfo.ConvertTimeFromUtc(@Model.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                     </tr>
                 </table>
                 <div style="border-top:3px solid white">
                     <div class="mt-3 text-center">
-                        <a href="@Url.Action("EditSupplier","Suppliers",new { supplierId= Model.SupplierId})" class="btn btn-warning">
-                            <i class="fa fa-edit"></i>
-                            <span>Edit Customer</span>
-                        </a>
-                        <a href="@Url.Action("Index", "Suppliers")" class="btn btn-secondary">
-                            <i class="fa fa-list"></i>
-                            <span>Suppliers</span>
-                        </a>
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <a href="@Url.Action("EditSupplier","Suppliers",new { supplierId= Model.Id})" class="btn btn-warning button">
+                                    <i class="fa fa-edit"></i>
+                                    <span>Edit Customer</span>
+                                </a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="@Url.Action("Index", "Suppliers")" class="btn btn-secondary button">
+                                    <i class="fa fa-list"></i>
+                                    <span>Suppliers</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-

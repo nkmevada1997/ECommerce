@@ -1,4 +1,10 @@
-﻿.loginLayout {
+﻿@media only screen and (max-width: 600px) {
+    .button {
+        margin-top: 15px !important
+    }
+}
+
+.loginLayout {
     background: #54555c url("../images/login.jpg") no-repeat;
     height: 500px; /* You must set a specified height */
     background-position: center; /* Center the image */
@@ -26,12 +32,22 @@
     color: #323343;
 }
 
-.block {
+.loginButton {
     display: block;
     width: 100%;
     border: none;
     background-color: #04AA6D;
     padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    border: none;
+    padding: 10px;
     font-size: 16px;
     cursor: pointer;
     text-align: center;

@@ -14,14 +14,16 @@ namespace ECommerce.Controllers
     [LoggedIn]
     public class CustomersController : Controller
     {
+        private readonly IWebHostEnvironment env;
         private readonly IService<Customer> service;
         private readonly IService<User> userService;
         private readonly IService<Country> countryService;
         private readonly IService<State> stateService;
         private readonly IService<City> cityService;
 
-        public CustomersController(IService<Customer> service, IService<User> userService, IService<Country> countryService, IService<State> stateService, IService<City> cityService)
+        public CustomersController(IWebHostEnvironment env, IService<Customer> service, IService<User> userService, IService<Country> countryService, IService<State> stateService, IService<City> cityService)
         {
+            this.env = env;
             this.service = service;
             this.userService = userService;
             this.countryService = countryService;
@@ -32,7 +34,15 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult Index(int? page)
         {
-            return View(this.service.GetAll().Where(x => x.IsDeleted == false).ToList().ToPagedList(page ?? 1, 5));
+            var customers = this.service.GetAll().Where(x => x.IsDeleted == false).ToList();
+            ViewBag.ShowPagination = false;
+            ViewBag.Count = customers.Count;
+
+            if (customers.Count > 5)
+            {
+                ViewBag.ShowPagination = true;
+            }
+            return View(customers.ToPagedList(page ?? 1, 5));
         }
 
         public IActionResult AddCustomer()
@@ -48,7 +58,7 @@ namespace ECommerce.Controllers
                 {
                     countriesDropdownList.Add(new CountriesDropdown
                     {
-                        CountryId = country.CountryId,
+                        CountryId = country.Id,
                         CountryName = country.CountryName,
                     });
                 }
@@ -67,12 +77,13 @@ namespace ECommerce.Controllers
             {
                 var customer = new Customer
                 {
-                    CustomerId = Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     DOB = model.DOB,
                     Gender = model.Gender,
                     Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
                     Password = EncodeBase.EncodeBase64(model.Password),
                     Country = model.Country,
                     State = model.State,
@@ -84,8 +95,8 @@ namespace ECommerce.Controllers
 
                 var user = new User
                 {
-                    UserId = Guid.NewGuid(),
-                    CustomerId = customer.CustomerId,
+                    Id = Guid.NewGuid(),
+                    CustomerId = customer.Id,
                     Email = model.Email,
                     Password = EncodeBase.EncodeBase64(model.Password),
                     UserName = model.FirstName + " " + model.LastName,
@@ -195,10 +206,11 @@ namespace ECommerce.Controllers
                 var user = users.SingleOrDefault(x => x.CustomerId == customerId);
                 if (user != null)
                 {
-                    this.userService.Delete(user.UserId);
+                    this.userService.Delete(user.Id);
                 }
             }
             return RedirectToAction("Index", "Customers");
         }
+
     }
 }

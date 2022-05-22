@@ -39,6 +39,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                @Html.LabelFor(customer=> customer.DOB)
+                                @Html.TextBoxFor(customer=> customer.DOB, new { @class = "form-control",  type = "date"})
+                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.DOB)</span>
+                                <br />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(customer=> customer.Gender)
+                                @Html.DropDownListFor(customer=>customer.Gender,new SelectList(Enum.GetValues(typeof(Gender))),"Select Gender",new { @class = "form-control"})
+                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Gender)</span>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelFor(customer=> customer.Email)
                                 @Html.TextBoxFor(customer=> customer.Email, new { @class = "form-control" })
                                 <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Email)</span>
@@ -48,9 +68,9 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.LabelFor(customer=> customer.DOB)
-                                @Html.TextBoxFor(customer=> customer.DOB, new { @class = "form-control",  type = "date"})
-                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.DOB)</span>
+                                @Html.LabelFor(customer=> customer.PhoneNumber)
+                                @Html.TextBoxFor(customer=> customer.PhoneNumber, new { @class = "form-control",type="number" })
+                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.PhoneNumber)</span>
                                 <br />
                             </div>
                         </div>
@@ -79,24 +99,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.LabelFor(customer=> customer.Gender)
-                                @Html.DropDownListFor(customer=>customer.Gender,new SelectList(Enum.GetValues(typeof(Gender))),"Select Gender",new { @class = "form-control"})
-                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Gender)</span>
-                                <br />
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
                                 @Html.LabelFor(customer=> customer.Country)
                                 @Html.TextBoxFor(customer=> customer.Country, new { @class = "form-control",})
                                 <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Country)</span>
                                 <br />
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(customer=> customer.State)
@@ -105,7 +114,9 @@
                                 <br />
                             </div>
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(customer=> customer.City)
@@ -118,14 +129,20 @@
 
                     <div class="form-group" style="border-top:3px solid white">
                         <div class="mt-3 text-center">
-                            <button type="submit" class="btn btn-primary" style="width:180px">
-                                <i class="fa fa-plus"></i>
-                                <span>Add Customers</span>
-                            </button> |
-                            <a href="@Url.Action("Index", "Customers")" class="btn btn-secondary">
-                                <i class="fa fa-list"></i>
-                                <span>Customers</span>
-                            </a>
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-primary button">
+                                        <i class="fa fa-plus"></i>
+                                        <span>Add Customer</span>
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="@Url.Action("Index", "Customers")" class="btn btn-danger button">
+                                        <i class="fa fa-list"></i>
+                                        <span>Cancel</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }

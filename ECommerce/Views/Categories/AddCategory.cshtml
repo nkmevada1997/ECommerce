@@ -1,14 +1,14 @@
-﻿@model AddStateModel
+﻿@model AddCategoryModel
 
 @{
-    ViewData["Title"] = "AddState";
+    ViewData["Title"] = "AddCategory";
 }
 
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card" style="margin:auto;">
             <div class="card-header bg-dark text-white text-center">
-                <h5 class="mt-1">Add State</h5>
+                <h5 class="mt-1">Add Category</h5>
             </div>
             <div class="card-body bg-dark text-light" style="border-top:3px solid white">
                 @using (Html.BeginForm())
@@ -18,20 +18,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                @Html.LabelFor(state=> state.CountryId)
-                                @Html.DropDownListFor(x => x.CountryId, new SelectList(ViewBag.CoutryItems, "CountryId", "CountryName"),"Select Country",new { @class = "form-control"})
-                                <span class="text-danger">@Html.ValidationMessageFor(state=> state.CountryId)</span>
-                                <br />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                @Html.LabelFor(state=> state.StateName)
-                                @Html.TextBoxFor(state=> state.StateName, new { @class = "form-control" })
-                                <span class="text-danger">@Html.ValidationMessageFor(state=> state.StateName)</span>
+                                @Html.LabelFor(category=> category.CategoryName)
+                                @Html.TextBoxFor(category=> category.CategoryName, new { @class = "form-control" })
+                                <span class="text-danger">@Html.ValidationMessageFor(category=> category.CategoryName)</span>
                                 <br />
                             </div>
                         </div>
@@ -43,13 +32,13 @@
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-primary button">
                                         <i class="fa fa-plus"></i>
-                                        <span>Add State</span>
+                                        <span>Add Category</span>
                                     </button>
                                 </div>
                                 <div class="col-md-6">
-                                    <a href="@Url.Action("Index", "States")" class="btn btn-secondary button">
+                                    <a href="@Url.Action("Index", "Categories")" class="btn btn-danger button">
                                         <i class="fa fa-list"></i>
-                                        <span>States</span>
+                                        <span>Cancel</span>
                                     </a>
                                 </div>
                             </div>
@@ -60,3 +49,4 @@
         </div>
     </div>
 </div>
+
