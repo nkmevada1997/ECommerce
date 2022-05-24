@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ecommerce.DAL.Models
 {
     [Table("Countries", Schema = "dbo")]
-    public class Country : BaseModel
+    public class Country : ModelBase
     {
         [Required]
         [MaxLength(100)]

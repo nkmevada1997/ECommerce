@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ecommerce.DAL.Models
 {
     [Table("Users", Schema = "dbo")]
-    public class User : BaseModel
+    public class User : ModelBase
     {
         [Required]
         [MaxLength(50)]

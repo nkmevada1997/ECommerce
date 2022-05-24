@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ecommerce.DAL.Models
 {
     [Table("Suppliers", Schema = "dbo")]
-    public class Supplier : BaseModel
+    public class Supplier : ModelBase
     {
         [Required]
         [MaxLength((20))]

@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Common.Models
 {
-    public class BaseModel
+    public class ModelBase
     {
         [Key]
         [Required]
