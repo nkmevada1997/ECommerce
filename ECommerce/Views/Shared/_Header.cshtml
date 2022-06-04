@@ -6,7 +6,7 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between float-end">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
                         <a class="nav-link text-light" asp-area="" asp-controller="Customers" asp-action="Index">Customer</a>
@@ -29,7 +29,7 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <li class="nav-item float-end">
                         <a class="nav-link text-light" asp-area="" asp-controller="Authentication" asp-action="Logout">@Context?.Session?.GetString("UserName")?.ToUpper()</a>
                     </li>
                 </ul>

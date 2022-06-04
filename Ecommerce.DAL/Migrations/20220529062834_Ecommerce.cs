@@ -43,50 +43,6 @@ namespace Ecommerce.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    State = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Suppliers",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SupplierName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    State = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Suppliers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "States",
                 schema: "dbo",
                 columns: table => new
@@ -105,8 +61,109 @@ namespace Ecommerce.DAL.Migrations
                         column: x => x.CountryId,
                         principalSchema: "dbo",
                         principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cities",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CityName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    StateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cities_States_StateId",
+                        column: x => x.StateId,
+                        principalSchema: "dbo",
+                        principalTable: "States",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customers_Cities_CityId",
+                        column: x => x.CityId,
+                        principalSchema: "dbo",
+                        principalTable: "Cities",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Customers_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalSchema: "dbo",
+                        principalTable: "Countries",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Customers_States_StateId",
+                        column: x => x.StateId,
+                        principalSchema: "dbo",
+                        principalTable: "States",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Suppliers",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SupplierName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CountryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Suppliers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Suppliers_Cities_CityId",
+                        column: x => x.CityId,
+                        principalSchema: "dbo",
+                        principalTable: "Cities",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Suppliers_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalSchema: "dbo",
+                        principalTable: "Countries",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Suppliers_States_StateId",
+                        column: x => x.StateId,
+                        principalSchema: "dbo",
+                        principalTable: "States",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -142,34 +199,11 @@ namespace Ecommerce.DAL.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Cities",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CityName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    StateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cities", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cities_States_StateId",
-                        column: x => x.StateId,
-                        principalSchema: "dbo",
-                        principalTable: "States",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 schema: "dbo",
                 table: "Users",
                 columns: new[] { "Id", "CanLogin", "CreatedDate", "CustomerId", "Email", "IsDeleted", "Password", "SupplierId", "UserName", "UserType" },
-                values: new object[] { new Guid("704ae97d-2342-4935-b182-13b19c3812c5"), true, new DateTime(2022, 5, 22, 5, 37, 5, 325, DateTimeKind.Utc).AddTicks(5258), null, "admin@gmail.com", false, "QWRtaW5AMTIz", null, "Admin", 1 });
+                values: new object[] { new Guid("2068dd87-6383-4fca-b6d8-1f7592f603ab"), true, new DateTime(2022, 5, 29, 6, 28, 33, 837, DateTimeKind.Utc).AddTicks(1590), null, "admin@gmail.com", false, "QWRtaW5AMTIz", null, "Admin", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cities_StateId",
@@ -178,10 +212,46 @@ namespace Ecommerce.DAL.Migrations
                 column: "StateId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Customers_CityId",
+                schema: "dbo",
+                table: "Customers",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_CountryId",
+                schema: "dbo",
+                table: "Customers",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_StateId",
+                schema: "dbo",
+                table: "Customers",
+                column: "StateId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_States_CountryId",
                 schema: "dbo",
                 table: "States",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_CityId",
+                schema: "dbo",
+                table: "Suppliers",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_CountryId",
+                schema: "dbo",
+                table: "Suppliers",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_StateId",
+                schema: "dbo",
+                table: "Suppliers",
+                column: "StateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_CustomerId",
@@ -203,15 +273,7 @@ namespace Ecommerce.DAL.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "Cities",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
                 name: "Users",
-                schema: "dbo");
-
-            migrationBuilder.DropTable(
-                name: "States",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
@@ -220,6 +282,14 @@ namespace Ecommerce.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Suppliers",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "Cities",
+                schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "States",
                 schema: "dbo");
 
             migrationBuilder.DropTable(

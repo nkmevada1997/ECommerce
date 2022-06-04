@@ -15,20 +15,18 @@ namespace ECommerce.Controllers
     public class CitiesController : Controller
     {
         private readonly IService<City> service;
-        private readonly IService<State> stateService;
         private readonly ApplicationDbContext context;
 
-        public CitiesController(IService<City> service, IService<State> stateService, ApplicationDbContext context)
+        public CitiesController(IService<City> service, ApplicationDbContext context)
         {
             this.service = service;
-            this.stateService = stateService;
             this.context = context;
         }
 
         [HttpGet]
         public IActionResult Index(int? page)
         {
-            var cities = this.context.Cities.Where(x => x.IsDeleted == false).Include(x => x.State).ToList();
+            var cities = this.context.Cities.Where(x => x.IsDeleted == false).Include(x => x.State).OrderBy(x => x.CityName).ToList();
 
             ViewBag.ShowPagination = false;
             ViewBag.Count = cities.Count;
@@ -41,26 +39,6 @@ namespace ECommerce.Controllers
 
         public IActionResult AddCity()
         {
-            var states = this.stateService.GetAll().Where(x => x.IsDeleted == false).ToList();
-            ViewBag.StateItems = ViewBag.CoutryItems;
-
-            if (states != null && states.Count > 0)
-            {
-                IList<StatesDropdown> statesDropdownList = new List<StatesDropdown>();
-                foreach (var state in states)
-                {
-                    statesDropdownList.Add(new StatesDropdown
-                    {
-                        StateId = state.Id,
-                        StateName = state.StateName,
-                    });
-                }
-
-                if (statesDropdownList.Count > 0)
-                {
-                    ViewBag.StateItems = statesDropdownList;
-                }
-            }
             return View();
         }
 
@@ -72,7 +50,7 @@ namespace ECommerce.Controllers
             {
                 var city = new City
                 {
-                    Id= Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     CityName = model.CityName,
                     StateId = model.StateId,
                     CreatedDate = DateTime.UtcNow,
@@ -86,17 +64,25 @@ namespace ECommerce.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult GetCityByState(Guid stateId)
+        {
+            var cities = this.service.GetAll().Where(x => x.StateId == stateId).ToList();
+
+            return Json(new
+            {
+                data = cities.OrderBy(x => x.CityName).ToList()
+            }); ;
+        }
+
         [HttpGet]
         public IActionResult GetCity(Guid cityId)
         {
-            var city = this.service.Get(cityId);
+            var city = this.context.Cities.Where(x => x.Id ==cityId && x.IsDeleted == false).Include(x => x.State).SingleOrDefault();
             if (city == null)
             {
                 return NotFound();
             }
-
-            var state = this.stateService.Get(city.StateId);
-            city.State = state;
 
             return View(city);
         }
@@ -105,8 +91,6 @@ namespace ECommerce.Controllers
         public IActionResult EditCity(Guid cityId)
         {
             var city = this.service.Get(cityId);
-            ViewBag.StateItems = new List<StatesDropdown>();
-
             if (city == null)
             {
                 return NotFound();
@@ -120,25 +104,6 @@ namespace ECommerce.Controllers
                     CityName = city.CityName,
                 };
 
-                IList<StatesDropdown> statesDropdownList = new List<StatesDropdown>();
-                var states = this.stateService.GetAll().Where(x => x.IsDeleted == false).ToList();
-
-                if (states != null && states.Count > 0)
-                {
-                    foreach (var state in states)
-                    {
-                        statesDropdownList.Add(new StatesDropdown
-                        {
-                            StateId = state.Id,
-                            StateName = state.StateName,
-                        });
-                    }
-
-                    if (statesDropdownList.Count > 0)
-                    {
-                        ViewBag.StateItems = statesDropdownList;
-                    }
-                }
                 return View(model);
             }
         }
@@ -164,15 +129,11 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult DeleteCity(Guid cityId)
         {
-            var city = this.service.Get(cityId);
+            var city = this.context.Cities.Where(x => x.Id == cityId && x.IsDeleted == false).Include(x => x.State).SingleOrDefault();
             if (city == null)
             {
                 return NotFound();
             }
-
-            var state = this.stateService.Get(city.StateId);
-            city.State = state;
-
             return View(city);
         }
 
@@ -189,7 +150,5 @@ namespace ECommerce.Controllers
 
             return RedirectToAction("Index", "Cities");
         }
-
-
     }
 }

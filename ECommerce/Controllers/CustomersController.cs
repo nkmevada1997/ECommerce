@@ -1,12 +1,13 @@
 ﻿using Ecommerce.BAL.Interface;
 using Ecommerce.Common.Enum;
+using Ecommerce.DAL.Data;
 using Ecommerce.DAL.Models;
 using Ecommerce.Helper.Encode;
 using Ecommerce.Models.Customers.AddCustomer;
 using Ecommerce.Models.Customers.EditCustomer;
-using Ecommerce.Models.Dropdown;
 using ECommerce.Helper.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 
 namespace ECommerce.Controllers
@@ -14,27 +15,21 @@ namespace ECommerce.Controllers
     [LoggedIn]
     public class CustomersController : Controller
     {
-        private readonly IWebHostEnvironment env;
         private readonly IService<Customer> service;
         private readonly IService<User> userService;
-        private readonly IService<Country> countryService;
-        private readonly IService<State> stateService;
-        private readonly IService<City> cityService;
+        private readonly ApplicationDbContext context;
 
-        public CustomersController(IWebHostEnvironment env, IService<Customer> service, IService<User> userService, IService<Country> countryService, IService<State> stateService, IService<City> cityService)
+        public CustomersController(IService<Customer> service, IService<User> userService, ApplicationDbContext context)
         {
-            this.env = env;
             this.service = service;
             this.userService = userService;
-            this.countryService = countryService;
-            this.stateService = stateService;
-            this.cityService = cityService;
+            this.context = context;
         }
 
         [HttpGet]
         public IActionResult Index(int? page)
         {
-            var customers = this.service.GetAll().Where(x => x.IsDeleted == false).ToList();
+            var customers = this.context.Customers.Where(x => x.IsDeleted == false).Include(x => x.Country).Include(x => x.State).Include(x => x.City).ToList();
             ViewBag.ShowPagination = false;
             ViewBag.Count = customers.Count;
 
@@ -47,25 +42,6 @@ namespace ECommerce.Controllers
 
         public IActionResult AddCustomer()
         {
-            IList<CountriesDropdown> countriesDropdownList = new List<CountriesDropdown>();
-            var countries = this.countryService.GetAll().Where(x => x.IsDeleted == false).ToList();
-            var states = this.stateService.GetAll().Where(x => x.IsDeleted == false).ToList();
-            var cities = this.cityService.GetAll().Where(x => x.IsDeleted == false).ToList();
-
-            if (countries != null && countries.Count > 0)
-            {
-                foreach (var country in countries)
-                {
-                    countriesDropdownList.Add(new CountriesDropdown
-                    {
-                        CountryId = country.Id,
-                        CountryName = country.CountryName,
-                    });
-                }
-
-                ViewBag.CoutryItems = countriesDropdownList;
-            }
-
             return View();
         }
 
@@ -80,14 +56,14 @@ namespace ECommerce.Controllers
                     Id = Guid.NewGuid(),
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    DOB = model.DOB,
+                    DOB = Convert.ToDateTime(model.DOB),
                     Gender = model.Gender,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
                     Password = EncodeBase.EncodeBase64(model.Password),
-                    Country = model.Country,
-                    State = model.State,
-                    City = model.City,
+                    CountryId = new Guid(model.CountryId),
+                    StateId = new Guid(model.StateId),
+                    CityId = new Guid(model.CityId),
                     CreatedDate = DateTime.UtcNow,
                     IsDeleted = false,
                 };
@@ -110,14 +86,13 @@ namespace ECommerce.Controllers
 
                 return RedirectToAction("Index", "Customers");
             }
-
             return View();
         }
 
         [HttpGet]
         public IActionResult GetCustomer(Guid customerId)
         {
-            var customer = this.service.Get(customerId);
+            var customer = this.context.Customers.Where(x => x.Id == customerId && x.IsDeleted == false).Include(x => x.Country).Include(x => x.State).Include(x => x.City).SingleOrDefault();
             if (customer == null)
             {
                 return NotFound();
@@ -144,9 +119,9 @@ namespace ECommerce.Controllers
                     LastName = customer.LastName,
                     DOB = customer.DOB,
                     Gender = customer.Gender,
-                    Country = customer.Country,
-                    State = customer.State,
-                    City = customer.City,
+                    CountryId = customer.CountryId.ToString(),
+                    StateId = customer.StateId.ToString(),
+                    CityId = customer.CityId.ToString(),
                 };
                 return View(model);
             }
@@ -164,10 +139,9 @@ namespace ECommerce.Controllers
                     customer.LastName = model.LastName;
                     customer.DOB = model.DOB;
                     customer.Gender = model.Gender;
-                    customer.Country = model.Country;
-                    customer.State = model.State;
-                    customer.City = model.City;
-
+                    customer.CountryId = new Guid(model.CountryId);
+                    customer.StateId = new Guid(model.StateId);
+                    customer.CityId = new Guid(model.CityId);
                     this.service.Update(customer);
                     return RedirectToAction("Index", "Customers");
                 }
@@ -179,7 +153,7 @@ namespace ECommerce.Controllers
         [HttpGet]
         public IActionResult DeleteCustomer(Guid customerId)
         {
-            var customer = this.service.Get(customerId);
+            var customer = this.context.Customers.Where(x => x.Id == customerId && x.IsDeleted == false).Include(x => x.Country).Include(x => x.State).Include(x => x.City).SingleOrDefault();
             if (customer == null)
             {
                 return NotFound();
@@ -211,6 +185,5 @@ namespace ECommerce.Controllers
             }
             return RedirectToAction("Index", "Customers");
         }
-
     }
 }

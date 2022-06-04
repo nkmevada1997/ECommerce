@@ -8,6 +8,7 @@ namespace Ecommerce.Common.Models
         [Required]
         public Guid Id { get; set; }
 
+        [Display(Name ="Creation Date")]
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
         public bool IsDeleted { get; set; } = false;

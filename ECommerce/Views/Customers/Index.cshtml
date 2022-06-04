@@ -13,12 +13,21 @@
             <span>Customers</span>
         </h3>
         <p>
-            <a href="@Url.Action("AddCustomer", "Customers")" class="btn btn-primary mt-3">
+            <a href="@Url.Action("AddCustomer", "Customers")" id="addCustomerButton" class="btn btn-primary mt-3">
                 <i class="fa fa-plus"></i>
                 <span>Add Customer</span>
             </a>
         </p>
         <br />
+
+        @if (@ViewBag.Count == 0)
+        {
+            <div style="text-align:center;" class="bg-dark paging">
+                <span class="text-danger">
+                    There are no Records!
+                </span>
+            </div>
+        }
 
         @if (@ViewBag.Count > 0)
         {
@@ -32,9 +41,9 @@
                             <th>@Html.DisplayNameFor(customer => customer.First().PhoneNumber)</th>
                             <th>@Html.DisplayNameFor(customer => customer.First().DOB)</th>
                             <th>@Html.DisplayNameFor(customer => customer.First().Gender)</th>
-                            <th>@Html.DisplayNameFor(customer => customer.First().Country)</th>
-                            <th>@Html.DisplayNameFor(customer => customer.First().State)</th>
-                            <th>@Html.DisplayNameFor(customer => customer.First().City)</th>
+                            <th>@Html.DisplayNameFor(customer => customer.First().Country.CountryName)</th>
+                            <th>@Html.DisplayNameFor(customer => customer.First().State.StateName)</th>
+                            <th>@Html.DisplayNameFor(customer => customer.First().City.CityName)</th>
                             <th>@Html.DisplayNameFor(customer => customer.First().CreatedDate)</th>
                             <th>Action(s)</th>
                         </tr>
@@ -49,9 +58,9 @@
                                 <td>@customer.PhoneNumber</td>
                                 <td>@customer.DOB.ToString("dd/MM/yyyy")</td>
                                 <td>@customer.Gender</td>
-                                <td>@customer.Country</td>
-                                <td>@customer.State</td>
-                                <td>@customer.City</td>
+                                <td>@customer.Country.CountryName</td>
+                                <td>@customer.State.StateName</td>
+                                <td>@customer.City.CityName</td>
                                 <td>@TimeZoneInfo.ConvertTimeFromUtc(@customer.CreatedDate,TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.StandardName)).ToString("dd/MM/yyyy hh:mm:tt")</td>
                                 <td>
                                     <a href="@Url.Action("GetCustomer", "Customers",new {customerId=customer.Id})" class="btn btn-primary">

@@ -5,7 +5,7 @@
 }
 
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="card" style="margin:auto;">
             <div class="card-header bg-dark text-white text-center">
                 <h5 class="mt-1">Add State</h5>
@@ -14,12 +14,11 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 @Html.LabelFor(state=> state.CountryId)
-                                @Html.DropDownListFor(x => x.CountryId, new SelectList(ViewBag.CoutryItems, "CountryId", "CountryName"),"Select Country",new { @class = "form-control"})
+                                <select class="form-control" name="countryId" id="countriesDropdown"></select>
                                 <span class="text-danger">@Html.ValidationMessageFor(state=> state.CountryId)</span>
                                 <br />
                             </div>
@@ -60,3 +59,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/state.js" asp-append-version="true"></script>
+}

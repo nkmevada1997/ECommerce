@@ -24,8 +24,7 @@ namespace Ecommerce.Models.Customers.AddCustomer
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = string.Empty;
 
-        [Required]
-        [DataType(DataType.PhoneNumber)]
+        [Required(ErrorMessage = "Mobile Number Is Required.")]
         [MaxLength(20)]
         [Display(Name = "Mobile Number")]
         [RegularExpression(@"^([0-9]{10})+$", ErrorMessage = "Please Enter Only Numbers")]
@@ -44,29 +43,22 @@ namespace Ecommerce.Models.Customers.AddCustomer
         [Compare("Password", ErrorMessage = "Password and Confirm Password Must Be Same.")]
         public string ConfirmPassword { get; set; } = string.Empty;
 
-        [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime DOB { get; set; }
+        [Required(ErrorMessage = "DOB Is Required.")]
+        public string DOB { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Gender Is Required.")]
         public Gender Gender { get; set; }
 
+        [Display(Name = "Country")]
         [Required(ErrorMessage = "Country Is Required.")]
-        [DataType(DataType.Text)]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please Enter Only Letters")]
-        [MaxLength((50))]
-        public string Country { get; set; } = string.Empty;
+        public string CountryId { get; set; } = string.Empty;
 
+        [Display(Name = "State")]
         [Required(ErrorMessage = "State Is Required.")]
-        [DataType(DataType.Text)]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please Enter Only Letters")]
-        [MaxLength((50))]
-        public string State { get; set; } = string.Empty;
+        public string StateId { get; set; } = string.Empty;
 
+        [Display(Name = "City")]
         [Required(ErrorMessage = "City Is Required.")]
-        [DataType(DataType.Text)]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please Enter Only Letters")]
-        [MaxLength((50))]
-        public string City { get; set; } = string.Empty;
+        public string CityId { get; set; } = string.Empty;
     }
 }

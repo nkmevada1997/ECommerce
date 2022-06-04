@@ -46,21 +46,24 @@ namespace Ecommerce.DAL.Models
         public Gender Gender { get; set; }
 
         [Required]
-        [MaxLength((50))]
-        [DataType(DataType.Text)]
         [Display(Name = "Country")]
-        public string Country { get; set; } = string.Empty;
+        public Guid CountryId { get; set; }
+
+        [ForeignKey("CountryId")]
+        public virtual Country Country { get; set; }
 
         [Required]
-        [MaxLength((50))]
-        [DataType(DataType.Text)]
         [Display(Name = "State")]
-        public string State { get; set; } = string.Empty;
+        public Guid StateId { get; set; }
+
+        [ForeignKey("StateId")]
+        public virtual State State { get; set; }
 
         [Required]
-        [MaxLength((50))]
-        [DataType(DataType.Text)]
         [Display(Name = "City")]
-        public string City { get; set; } = string.Empty;
+        public Guid CityId { get; set; }
+
+        [ForeignKey("CityId")]
+        public virtual City City { get; set; }
     }
 }

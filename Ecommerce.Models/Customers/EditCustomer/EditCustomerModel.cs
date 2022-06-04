@@ -27,22 +27,16 @@ namespace Ecommerce.Models.Customers.EditCustomer
         [Required(ErrorMessage = "Gender Is Required.")]
         public Gender Gender { get; set; }
 
+        [Display(Name = "Country")]
         [Required(ErrorMessage = "Country Is Required.")]
-        [DataType(DataType.Text)]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please Enter Only Letters")]
-        [MaxLength((50))]
-        public string Country { get; set; } = string.Empty;
+        public string CountryId { get; set; } = string.Empty;
 
+        [Display(Name = "State")]
         [Required(ErrorMessage = "State Is Required.")]
-        [DataType(DataType.Text)]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please Enter Only Letters")]
-        [MaxLength((50))]
-        public string State { get; set; } = string.Empty;
+        public string StateId { get; set; } = string.Empty;
 
+        [Display(Name = "City")]
         [Required(ErrorMessage = "City Is Required.")]
-        [DataType(DataType.Text)]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Please Enter Only Letters")]
-        [MaxLength((50))]
-        public string City { get; set; } = string.Empty;
+        public string CityId { get; set; } = string.Empty;
     }
 }

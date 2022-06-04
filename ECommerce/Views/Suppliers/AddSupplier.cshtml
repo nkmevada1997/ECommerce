@@ -1,11 +1,10 @@
 ﻿@model AddSupplierModel
-
 @{
     ViewData["Title"] = "AddSupplier";
 }
 
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <div class="card" style="margin:auto;">
             <div class="card-header bg-dark text-white text-center bg-dark">
                 <h5 class="mt-1">Add Supplier</h5>
@@ -39,20 +38,11 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            @Html.LabelFor(customer=> customer.Password)
-                            @Html.TextBoxFor(customer=> customer.Password, new { @class = "form-control",type = "password" })
-                            <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Password)</span>
-                            <br />
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            @Html.LabelFor(customer=> customer.ConfirmPassword)
-                            @Html.TextBoxFor(customer=> customer.ConfirmPassword, new { @class = "form-control",  type = "password"})
-                            <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.ConfirmPassword)</span>
+                            @Html.LabelFor(supplier=> supplier.Password)
+                            @Html.TextBoxFor(supplier=> supplier.Password, new { @class = "form-control",type = "password" })
+                            <span class="text-danger">@Html.ValidationMessageFor(supplier=> supplier.Password)</span>
                             <br />
                         </div>
                     </div>
@@ -61,28 +51,42 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            @Html.LabelFor(supplier => supplier.Country)
-                            @Html.TextBoxFor(supplier => supplier.Country, new { @class = "form-control" })
-                            <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.Country)</span>
+                            @Html.LabelFor(supplier=> supplier.ConfirmPassword)
+                            @Html.TextBoxFor(supplier=> supplier.ConfirmPassword, new { @class = "form-control",  type = "password"})
+                            <span class="text-danger">@Html.ValidationMessageFor(supplier=> supplier.ConfirmPassword)</span>
                             <br />
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row" id="countryDropdownDiv">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            @Html.LabelFor(supplier => supplier.State)
-                            @Html.TextBoxFor(supplier => supplier.State, new { @class = "form-control" })
-                            <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.State)</span>
+                            @Html.LabelFor(supplier=> supplier.CountryId)
+                            <select aria-label="Country" class="form-select" id="countriesDropdown" name="countryId"></select>
+                            <span class="text-danger">@Html.ValidationMessageFor(supplier=> supplier.CountryId)</span>
                             <br />
                         </div>
                     </div>
-                    <div class="col-md-6">
+                </div>
+
+                <div class="row" id="stateDropdownDiv">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            @Html.LabelFor(supplier => supplier.City)
-                            @Html.TextBoxFor(supplier => supplier.City, new { @class = "form-control" })
-                            <span class="text-danger">@Html.ValidationMessageFor(supplier => supplier.City)</span>
+                            @Html.LabelFor(supplier=> supplier.StateId)
+                            <select aria-label="State" class="form-select" id="stateDropdown" name="stateId"></select>
+                            <span class="text-danger" id="stateError">@Html.ValidationMessageFor(supplier=> supplier.StateId)</span>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="cityDropdownDiv">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @Html.LabelFor(supplier=> supplier.CityId)
+                            <select aria-label="City" class="form-select" id="cityDropdown" name="cityId"></select>
+                            <span class="text-danger">@Html.ValidationMessageFor(supplier=> supplier.CityId)</span>
                             <br />
                         </div>
                     </div>
@@ -98,9 +102,9 @@
                                 </button>
                             </div>
                             <div class="col-md-6">
-                                <a href="@Url.Action("Index", "Suppliers")" class="btn btn-secondary button">
+                                <a href="@Url.Action("Index", "Suppliers")" class="btn btn-danger button">
                                     <i class="fa fa-list"></i>
-                                    <span>Suppliers</span>
+                                    <span>Cancel</span>
                                 </a>
                             </div>
                         </div>
@@ -111,3 +115,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="/js/supplier.js" asp-append-version="true"></script>
+} 

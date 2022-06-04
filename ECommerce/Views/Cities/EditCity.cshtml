@@ -5,7 +5,7 @@
 }
 
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="card" style="margin:auto;">
             <div class="card-header bg-dark text-white text-center">
                 <h5 class="mt-1">Add State</h5>
@@ -14,12 +14,12 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-
+                    @Html.Hidden("getStateId",Model.StateId)
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 @Html.LabelFor(city=> city.StateId)
-                                @Html.DropDownListFor(x => x.StateId, new SelectList(ViewBag.StateItems, "StateId", "StateName"),"Select State",new { @class = "form-control"})
+                                <select aria-label="State" class="form-select" id="stateDropdown"></select>
                                 <span class="text-danger">@Html.ValidationMessageFor(city=> city.StateId)</span>
                                 <br />
                             </div>
@@ -60,3 +60,9 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts
+    {
+    <script src="~/js/city.js"></script>
+    }

@@ -23,7 +23,7 @@ namespace ECommerce.Controllers
 
         public IActionResult Index(int? page)
         {
-            var categories = this.context.Categories.Where(x => x.IsDeleted == false).ToList();
+            var categories = this.service.GetAll().Where(x => x.IsDeleted == false).OrderBy(x => x.CategoryName).ToList();
 
             ViewBag.ShowPagination = false;
             ViewBag.Count = categories.Count;

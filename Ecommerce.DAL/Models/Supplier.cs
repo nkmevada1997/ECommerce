@@ -26,21 +26,24 @@ namespace Ecommerce.DAL.Models
         public string Password { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength((50))]
-        [DataType(DataType.Text)]
-        [Display(Name ="Country")]
-        public string Country { get; set; } = string.Empty;
+        [Display(Name = "Country")]
+        public virtual Guid CountryId { get; set; }
+
+        [ForeignKey("CountryId")]
+        public virtual Country Country { get; set; }
 
         [Required]
-        [MaxLength((50))]
-        [DataType(DataType.Text)]
-        [Display(Name ="State")]
-        public string State { get; set; } = string.Empty;
+        [Display(Name = "State")]
+        public virtual Guid StateId { get; set; }
+
+        [ForeignKey("StateId")]
+        public virtual State State { get; set; }
 
         [Required]
-        [MaxLength((50))]
-        [DataType(DataType.Text)]
-        [Display (Name ="City")]
-        public string City { get; set; } = string.Empty;
+        [Display(Name = "City")]
+        public virtual Guid CityId { get; set; }
+
+        [ForeignKey("CityId")]
+        public virtual City City { get; set; }
     }
 }

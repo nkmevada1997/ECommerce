@@ -10,7 +10,7 @@ namespace Ecommerce.DAL.Models
         [Required]
         [MaxLength(100)]
         [DataType(DataType.Text)]
-        [Display(Name = "State Name")]
+        [Display(Name = "State")]
         public string StateName { get; set; } = string.Empty;
 
         [Required]
@@ -18,7 +18,6 @@ namespace Ecommerce.DAL.Models
         public virtual Guid CountryId { get; set; }
 
         [ForeignKey("CountryId")]
-
-        public virtual Country? Country { get; set; }
+        public virtual Country Country { get; set; } 
     }
 }

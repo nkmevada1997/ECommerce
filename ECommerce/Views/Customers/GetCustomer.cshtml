@@ -5,7 +5,7 @@
 }
 
 <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div class="card" style="margin:auto;">
             <div class="card-header bg-dark text-white text-center bg-dark" style="height:50px">
                 <h5 class="mt-1">@ViewBag.Header</h5>
@@ -49,16 +49,23 @@
 
                     <tr>
                         <td>
-                            <b>@Html.DisplayNameFor(customer=> customer.Country)</b>
+                            <b>@Html.DisplayNameFor(customer=> customer.Country.CountryName)</b>
                         </td>
-                        <td>@Html.DisplayFor(customer=> customer.Country)</td>
+                        <td>@Html.DisplayFor(customer=> customer.Country.CountryName)</td>
+                    </tr>
+
+                     <tr>
+                        <td>
+                            <b>@Html.DisplayNameFor(customer=> customer.State.StateName)</b>
+                        </td>
+                        <td>@Html.DisplayFor(customer=> customer.State.StateName)</td>
                     </tr>
 
                     <tr>
                         <td>
-                            <b>@Html.DisplayNameFor(customer=> customer.City)</b>
+                            <b>@Html.DisplayNameFor(customer=> customer.City.CityName)</b>
                         </td>
-                        <td>@Html.DisplayFor(customer=> customer.City)</td>
+                        <td>@Html.DisplayFor(customer=> customer.City.CityName)</td>
                     </tr>
 
                     <tr>

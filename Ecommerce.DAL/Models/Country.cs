@@ -10,7 +10,7 @@ namespace Ecommerce.DAL.Models
         [Required]
         [MaxLength(100)]
         [DataType(DataType.Text)]
-        [Display(Name = "Country Name")]
+        [Display(Name = "Country")]
         public string CountryName { get; set; } = string.Empty;
     }
 }

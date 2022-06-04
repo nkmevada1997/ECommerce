@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220522053705_Ecommerce")]
+    [Migration("20220529062834_Ecommerce")]
     partial class Ecommerce
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,15 +101,11 @@ namespace Ecommerce.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<Guid>("CityId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -147,12 +143,16 @@ namespace Ecommerce.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<Guid>("StateId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("StateId");
 
                     b.ToTable("Customers", "dbo");
                 });
@@ -190,15 +190,11 @@ namespace Ecommerce.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<Guid>("CityId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<Guid>("CountryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -216,10 +212,8 @@ namespace Ecommerce.DAL.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<Guid>("StateId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SupplierName")
                         .IsRequired()
@@ -227,6 +221,12 @@ namespace Ecommerce.DAL.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("StateId");
 
                     b.ToTable("Suppliers", "dbo");
                 });
@@ -280,9 +280,9 @@ namespace Ecommerce.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("704ae97d-2342-4935-b182-13b19c3812c5"),
+                            Id = new Guid("2068dd87-6383-4fca-b6d8-1f7592f603ab"),
                             CanLogin = true,
-                            CreatedDate = new DateTime(2022, 5, 22, 5, 37, 5, 325, DateTimeKind.Utc).AddTicks(5258),
+                            CreatedDate = new DateTime(2022, 5, 29, 6, 28, 33, 837, DateTimeKind.Utc).AddTicks(1590),
                             Email = "admin@gmail.com",
                             IsDeleted = false,
                             Password = "QWRtaW5AMTIz",
@@ -302,6 +302,33 @@ namespace Ecommerce.DAL.Migrations
                     b.Navigation("State");
                 });
 
+            modelBuilder.Entity("Ecommerce.DAL.Models.Customer", b =>
+                {
+                    b.HasOne("Ecommerce.DAL.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecommerce.DAL.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecommerce.DAL.Models.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("State");
+                });
+
             modelBuilder.Entity("Ecommerce.DAL.Models.State", b =>
                 {
                     b.HasOne("Ecommerce.DAL.Models.Country", "Country")
@@ -311,6 +338,33 @@ namespace Ecommerce.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("Ecommerce.DAL.Models.Supplier", b =>
+                {
+                    b.HasOne("Ecommerce.DAL.Models.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecommerce.DAL.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecommerce.DAL.Models.State", "State")
+                        .WithMany()
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("Ecommerce.DAL.Models.User", b =>

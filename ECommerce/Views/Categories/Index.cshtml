@@ -17,6 +17,15 @@
         </p>
         <br />
 
+         @if (@ViewBag.Count == 0)
+        {
+            <div style="text-align:center;" class="bg-dark paging">
+                <span class="text-danger">
+                    There are no Records!
+                </span>
+            </div>
+        }
+
         @if (@ViewBag.Count > 0)
         {
             <div style="overflow-x:auto;" class="table-responsive">

@@ -1,11 +1,12 @@
-﻿@model EditCustomerModel
+﻿@using Ecommerce.Common.Enum
+@model EditCustomerModel
 
 @{
     ViewData["Title"] = "EditCustomer";
 }
 
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <div class="card" style="margin:auto;">
             <div class="card-header bg-dark text-white text-center" style="height:50px">
                 <h5 class="mt-1">Edit Customer</h5>
@@ -14,9 +15,12 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
+                    @Html.Hidden("getCountryId",Model.CountryId);
+                    @Html.Hidden("getStateId",Model.StateId);
+                    @Html.Hidden("getCityId",Model.CityId);
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 @Html.LabelFor(customer=> customer.FirstName)
                                 @Html.TextBoxFor(customer=> customer.FirstName, new { @class = "form-control" })
@@ -25,7 +29,9 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 @Html.LabelFor(customer=> customer.LastName)
                                 @Html.TextBoxFor(customer=> customer.LastName, new { @class = "form-control" })
@@ -36,7 +42,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 @Html.LabelFor(customer=> customer.DOB)
                                 @Html.TextBoxFor(customer=> customer.DOB,"{0:yyyy-MM-dd}", new { @class = "form-control",  type = "date"})
@@ -44,11 +50,13 @@
                                 <br />
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 @Html.LabelFor(customer=> customer.Gender)
-                                @Html.TextBoxFor(customer=> customer.Gender, new { @class = "form-control" })
+                                @Html.DropDownListFor(customer=>customer.Gender,new SelectList(Enum.GetValues(typeof(Gender))),"Select Gender",new { @class = "form-select"})
                                 <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Gender)</span>
                                 <br />
                             </div>
@@ -56,31 +64,33 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12" id="countryDropdownDiv">
                             <div class="form-group">
-                                @Html.LabelFor(customer=> customer.Country)
-                                @Html.TextBoxFor(customer=> customer.Country, new { @class = "form-control",})
-                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.Country)</span>
-                                <br />
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(customer=> customer.State)
-                                @Html.TextBoxFor(customer=> customer.State, new { @class = "form-control" })
-                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.State)</span>
+                                @Html.LabelFor(customer=> customer.CountryId)
+                                <select aria-label="Country" class="form-select" id="countriesDropdown" name="countryId"></select>
+                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.CountryId)</span>
                                 <br />
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
+                    <div class="row" id="stateDropdownDiv">
+                        <div class="col-md-12">
                             <div class="form-group">
-                                @Html.LabelFor(customer=> customer.City)
-                                @Html.TextBoxFor(customer=> customer.City, new { @class = "form-control",})
-                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.City)</span>
+                                @Html.LabelFor(customer=> customer.StateId)
+                                <select aria-label="State" class="form-select" id="stateDropdown" name="stateId"></select>
+                                <span class="text-danger" id="stateError">@Html.ValidationMessageFor(customer=> customer.StateId)</span>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="cityDropdownDiv">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(customer=> customer.CityId)
+                                <select aria-label="City" class="form-select" id="cityDropdown" name="cityId"></select>
+                                <span class="text-danger">@Html.ValidationMessageFor(customer=> customer.CityId)</span>
                                 <br />
                             </div>
                         </div>
@@ -109,3 +119,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/customer.min.js" asp-append-version="true"></script>
+}

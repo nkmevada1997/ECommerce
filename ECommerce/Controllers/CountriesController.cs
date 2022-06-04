@@ -59,6 +59,17 @@ namespace ECommerce.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetCountries()
+        {
+            var countries = this.service.GetAll().OrderBy(x => x.CountryName).ToList();
+
+            return Json(new
+            {
+                Data = countries,
+            });
+        }
+
+        [HttpGet]
         public IActionResult GetCountry(Guid countryId)
         {
             var country = this.service.Get(countryId);

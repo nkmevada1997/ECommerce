@@ -53,9 +53,9 @@ namespace ECommerce.Controllers
                     SupplierName = model.SupplierName,
                     Email = model.Email,
                     Password = EncodeBase.EncodeBase64(model.Password),
-                    Country = model.Country,
-                    State = model.State,
-                    City = model.City,
+                    CountryId = model.CountryId,
+                    StateId = model.StateId,
+                    CityId = model.CityId,
                     CreatedDate = DateTime.UtcNow,
                     IsDeleted = false,
                 };
@@ -105,9 +105,9 @@ namespace ECommerce.Controllers
                 {
                     SupplierId = supplier.Id,
                     SupplierName = supplier.SupplierName,
-                    Country = supplier.Country,
-                    State = supplier.State,
-                    City = supplier.City,
+                    CountryId = supplier.CountryId,
+                    StateId = supplier.StateId,
+                    CityId = supplier.CityId,
                 };
                 return View(model);
             }
@@ -122,9 +122,9 @@ namespace ECommerce.Controllers
                 if (supplier != null)
                 {
                     supplier.SupplierName = model.SupplierName;
-                    supplier.Country = model.Country;
-                    supplier.State = model.State;
-                    supplier.City = model.City;
+                    supplier.CountryId = model.CountryId;
+                    supplier.StateId = model.StateId;
+                    supplier.CityId = model.CityId;
 
                     this.service.Update(supplier);
                     return RedirectToAction("Index", "Suppliers");

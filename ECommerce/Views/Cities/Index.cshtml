@@ -8,14 +8,23 @@
 
 <div class="row justify-content-center">
     <div>
-        <h3 class="text-light">States</h3>
+        <h3 class="text-light">Cities</h3>
         <p>
-            <a href="@Url.Action("AddCity", "Cities")" class="btn btn-primary">
+            <a href="@Url.Action("AddCity", "Cities")" class="btn btn-primary mt-3">
                 <i class="fa fa-plus"></i>
-                <span>Add City</span>
+                <span>Add City </span>
             </a>
         </p>
         <br />
+
+         @if (@ViewBag.Count == 0)
+        {
+            <div style="text-align:center;" class="bg-dark paging">
+                <span class="text-danger">
+                    There are no Records!
+                </span>
+            </div>
+        }
 
         @if (@ViewBag.Count > 0)
         {
